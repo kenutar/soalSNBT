@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi SNBT 2026 — Tryout Set Soal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   DESIGN SYSTEM — Pink × Blue × White
+   ══════════════════════════════════════════ */
+:root {
+  --pink:        #FF69B4;
+  --pink-dark:   #E0408A;
+  --pink-light:  #FFB3D9;
+  --pink-pale:   #FFF0F8;
+  --blue:        #0096FF;
+  --blue-dark:   #0070CC;
+  --blue-light:  #66C0FF;
+  --blue-pale:   #EBF5FF;
+  --white:       #FFFFFF;
+  --bg:          #FFFFFF;
+  --surface:     #F8F9FA;
+  --black:       #111111;
+  --gray-800:    #222222;
+  --gray-600:    #555555;
+  --gray-400:    #888888;
+  --gray-200:    #E0E0E0;
+  --gray-100:    #F3F3F3;
+  --green:       #16A34A;
+  --green-pale:  #ECFDF5;
+  --red:         #DC2626;
+  --red-pale:    #FEF2F2;
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.13);
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+
+  /* FONT SCALE — 1.5× larger than standard */
+  --fs-xs:    13.5px;
+  --fs-sm:    15px;
+  --fs-base:  18px;
+  --fs-md:    20px;
+  --fs-lg:    24px;
+  --fs-xl:    30px;
+  --fs-2xl:   38px;
+  --fs-3xl:   48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--black);
+  min-height: 100vh;
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══ SCROLLBAR ══ */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 4px; }
+
+/* ══════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════ */
+.site-header {
+  background: linear-gradient(135deg, var(--pink) 0%, #FF85C1 45%, var(--blue) 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.22);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  flex-shrink: 0;
+}
+.header-text h1 {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.header-text p {
+  font-size: var(--fs-xs);
+  color: rgba(255,255,255,0.82);
+  font-weight: 500;
+  margin-top: 3px;
+}
+.header-nav {
+  display: flex;
+  gap: 10px;
+}
+.nav-btn {
+  background: rgba(255,255,255,0.18);
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: var(--radius-sm);
+  padding: 9px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.32); transform: translateY(-1px); }
+.nav-btn.active { background: var(--white); color: var(--pink-dark); border-color: var(--white); }
+
+/* ══════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════ */
+.main { max-width: 960px; margin: 0 auto; padding: 40px 24px 100px; }
+
+/* ══════════════════════════════════════════
+   TABS / VIEWS
+   ══════════════════════════════════════════ */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ══════════════════════════════════════════
+   START SCREEN
+   ══════════════════════════════════════════ */
+.start-hero {
+  text-align: center;
+  padding: 56px 24px 48px;
+  background: linear-gradient(160deg, var(--pink-pale) 0%, var(--blue-pale) 100%);
+  border-radius: var(--radius-xl);
+  margin-bottom: 36px;
+  border: 1.5px solid var(--gray-200);
+}
+.start-emoji {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 4px 12px rgba(255,105,180,0.3));
+}
+.start-hero h2 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 14px;
+  letter-spacing: -1px;
+}
+.start-hero h2 span { color: var(--pink-dark); }
+.start-hero p {
+  font-size: var(--fs-md);
+  color: var(--gray-600);
+  max-width: 560px;
+  margin: 0 auto 10px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+.start-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1.5px solid var(--pink-light);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: var(--fs-sm);
+  color: var(--pink-dark);
+  font-weight: 600;
+  margin: 18px 0 32px;
+}
+.stats-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 20px 28px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--gray-200);
+  min-width: 110px;
+  transition: transform 0.18s;
+}
+.stat-card:hover { transform: translateY(-2px); }
+.stat-card .num {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-card .label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════ */
+.btn-pink {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 16px 44px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(255,105,180,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-pink:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,105,180,0.45); }
+.btn-pink:active { transform: translateY(0); }
+
+.btn-blue {
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 36px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0,150,255,0.30);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-blue:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,150,255,0.40); }
+
+.btn-outline-pink {
+  background: var(--white);
+  color: var(--pink-dark);
+  border: 2px solid var(--pink);
+  border-radius: var(--radius-md);
+  padding: 14px 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-outline-pink:hover { background: var(--pink-pale); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: var(--gray-100);
+  color: var(--gray-600);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-ghost:hover { background: var(--gray-200); }
+
+.btn-danger {
+  background: var(--red-pale);
+  color: var(--red);
+  border: 1.5px solid #FECACA;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-danger:hover { background: #FEE2E2; }
+
+/* ══════════════════════════════════════════
+   PROGRESS BAR
+   ══════════════════════════════════════════ */
+.progress-wrap { margin-bottom: 28px; }
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.progress-label { font-size: var(--fs-sm); font-weight: 600; color: var(--gray-600); }
+.progress-count {
+  font-size: var(--fs-md);
+  font-weight: 800;
+  color: var(--black);
+}
+.progress-count .accent { color: var(--pink-dark); }
+.progress-track {
+  height: 10px;
+  background: var(--gray-200);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  border-radius: 100px;
+  transition: width 0.45s cubic-bezier(.4,0,.2,1);
+}
+
+/* ══════════════════════════════════════════
+   QUESTION CARD
+   ══════════════════════════════════════════ */
+.q-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--gray-200);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: cardIn 0.32s cubic-bezier(.4,0,.2,1);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card-topbar {
+  background: linear-gradient(90deg, var(--pink-pale), var(--blue-pale));
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1.5px solid var(--gray-200);
+  flex-wrap: wrap;
+}
+.badge-soal {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: var(--white);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.badge-cat {
+  background: var(--blue-pale);
+  color: var(--blue-dark);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--blue-light);
+}
+.badge-group {
+  margin-left: auto;
+  font-size: var(--fs-xs);
+  color: var(--gray-400);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Context / Teks Bacaan */
+.context-block {
+  border-bottom: 1.5px solid var(--gray-200);
+}
+.ctx-toggle {
+  width: 100%;
+  background: var(--blue-pale);
+  border: none;
+  border-bottom: 1px solid var(--blue-light);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--blue-dark);
+  transition: background 0.15s;
+}
+.ctx-toggle:hover { background: #D6EEFF; }
+.ctx-icon { font-size: var(--fs-md); }
+.ctx-arrow {
+  margin-left: auto;
+  font-size: 12px;
+  transition: transform 0.25s;
+}
+.ctx-arrow.open { transform: rotate(180deg); }
+.ctx-body {
+  display: none;
+  padding: 24px 28px;
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--gray-800);
+  background: var(--surface);
+  max-height: 360px;
+  overflow-y: auto;
+}
+.ctx-body.open { display: block; }
+.ctx-body p { margin-bottom: 12px; }
+.ctx-body p:last-child { margin-bottom: 0; }
+.ctx-body table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: var(--fs-xs); }
+.ctx-body table td, .ctx-body table th {
+  border: 1.5px solid var(--gray-200);
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+.ctx-body table th { background: var(--pink-pale); font-weight: 700; }
+.ctx-body ul, .ctx-body ol { margin: 8px 0 8px 20px; }
+.ctx-body li { margin-bottom: 4px; }
+
+.card-body { padding: 32px 28px 28px; }
+
+.question-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--pink-dark);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.question-text {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.75;
+  margin-bottom: 28px;
+  white-space: pre-wrap;
+}
+
+/* Options */
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 17px 20px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--white);
+  text-align: left;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+.opt:hover {
+  border-color: var(--pink);
+  background: var(--pink-pale);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+.opt-letter {
+  width: 34px; height: 34px; min-width: 34px;
+  background: var(--gray-100);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  color: var(--gray-600);
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.opt:hover .opt-letter { background: var(--pink); color: var(--white); }
+.opt-text { font-size: var(--fs-base); color: var(--black); font-weight: 400; line-height: 1.6; padding-top: 4px; }
+
+/* Answer states */
+.opt.correct { border-color: var(--green) !important; background: var(--green-pale) !important; pointer-events: none; }
+.opt.correct .opt-letter { background: var(--green) !important; color: var(--white) !important; }
+.opt.wrong { border-color: var(--red) !important; background: var(--red-pale) !important; pointer-events: none; }
+.opt.wrong .opt-letter { background: var(--red) !important; color: var(--white) !important; }
+.opt.disabled { pointer-events: none; opacity: 0.45; }
+
+/* Feedback */
+.feedback {
+  display: none;
+  margin-top: 22px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  align-items: flex-start;
+  gap: 12px;
+}
+.feedback.correct { display: flex; background: var(--green-pale); color: var(--green); border: 2px solid #BBF7D0; }
+.feedback.wrong { display: flex; background: var(--red-pale); color: var(--red); border: 2px solid #FECACA; }
+.feedback-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+
+/* Pembahasan */
+.pem-wrap { margin-top: 20px; }
+.pem-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue-pale);
+  color: var(--blue-dark);
+  border: 1.5px solid var(--blue-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.pem-btn:hover { background: #D6EEFF; }
+.pem-btn .pem-arrow { transition: transform 0.25s; font-size: 11px; }
+.pem-btn.open .pem-arrow { transform: rotate(180deg); }
+.pem-box {
+  display: none;
+  margin-top: 14px;
+  padding: 20px 22px;
+  background: linear-gradient(135deg, var(--pink-pale), var(--blue-pale));
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--pink);
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--gray-800);
+}
+.pem-box.open { display: block; }
+.pem-box table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: var(--fs-xs); }
+.pem-box table td, .pem-box table th { border: 1.5px solid var(--gray-200); padding: 7px 10px; }
+.pem-box table th { background: var(--pink-pale); font-weight: 700; }
+
+/* Next btn */
+.next-wrap {
+  display: none;
+  justify-content: flex-end;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1.5px solid var(--gray-200);
+}
+
+/* ══════════════════════════════════════════
+   RESULT SCREEN
+   ══════════════════════════════════════════ */
+.result-hero {
+  background: linear-gradient(135deg, var(--pink), #FF85C1 50%, var(--blue));
+  border-radius: var(--radius-xl);
+  padding: 52px 28px 44px;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.result-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.score-ring {
+  width: 140px; height: 140px;
+  margin: 0 auto 28px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.score-ring svg { position: absolute; top:0; left:0; transform: rotate(-90deg); }
+.score-inner { position: relative; text-align: center; }
+.score-num {
+  font-size: var(--fs-3xl);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+}
+.score-denom { font-size: var(--fs-sm); color: rgba(255,255,255,0.7); font-weight: 500; margin-top: 2px; }
+.result-verdict {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+  position: relative;
+}
+.result-pct {
+  font-size: var(--fs-md);
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  position: relative;
+}
+
+/* Review section */
+.review-header-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 6px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--gray-200);
+}
+.review-title {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--black);
+}
+.review-sub {
+  font-size: var(--fs-sm);
+  color: var(--gray-400);
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.review-item {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+.review-item:hover { box-shadow: var(--shadow-md); }
+.review-item-header {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1.5px solid var(--gray-200);
+  flex-wrap: wrap;
+}
+.ri-num { font-size: var(--fs-base); font-weight: 700; color: var(--gray-600); }
+.ri-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-xs); font-weight: 700;
+  padding: 4px 12px; border-radius: 100px;
+}
+.ri-badge.correct { background: var(--green-pale); color: var(--green); border: 1px solid #BBF7D0; }
+.ri-badge.wrong   { background: var(--red-pale);   color: var(--red);   border: 1px solid #FECACA; }
+.ri-cat { font-size: var(--fs-xs); color: var(--gray-400); margin-left: auto; }
+.review-body { padding: 20px 24px; }
+.ri-q { font-size: var(--fs-base); color: var(--black); font-weight: 500; margin-bottom: 14px; white-space: pre-wrap; line-height: 1.7; }
+.ans-row {
+  font-size: var(--fs-sm);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  display: flex; gap: 8px; align-items: flex-start;
+  margin-bottom: 6px;
+}
+.ans-row.user-wrong { background: var(--red-pale); color: var(--red); border: 1.5px solid #FECACA; }
+.ans-row.correct-ans { background: var(--green-pale); color: var(--green); border: 1.5px solid #BBF7D0; }
+.ans-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.8; white-space: nowrap; flex-shrink: 0; padding-top: 1px; }
+
+.result-footer {
+  text-align: center;
+  padding-top: 36px;
+  margin-top: 36px;
+  border-top: 1.5px solid var(--gray-200);
+}
+.result-footer p { font-size: var(--fs-base); color: var(--gray-400); margin-bottom: 20px; }
+
+/* ══════════════════════════════════════════
+   ADD QUESTION VIEW — NEW FORMAT
+   ══════════════════════════════════════════ */
+.add-view-header { margin-bottom: 28px; }
+.add-view-header h2 { font-size: var(--fs-2xl); font-weight: 800; color: var(--black); margin-bottom: 8px; }
+.add-view-header p { font-size: var(--fs-base); color: var(--gray-600); }
+
+/* Format Guide */
+.format-guide { background: var(--surface); border: 1.5px solid var(--gray-200); border-radius: var(--radius-xl); margin-bottom: 24px; overflow: hidden; }
+.format-guide-header { display: flex; align-items: center; gap: 14px; padding: 20px 28px; background: linear-gradient(135deg, var(--pink-pale), var(--blue-pale)); border-bottom: 1.5px solid var(--gray-200); flex-wrap: wrap; }
+.format-guide-icon { font-size: 28px; flex-shrink: 0; }
+.format-guide-title { font-size: var(--fs-md); font-weight: 700; color: var(--black); }
+.format-guide-sub { font-size: var(--fs-sm); color: var(--gray-600); margin-top: 2px; }
+#formatGuideBody { padding: 24px 28px; }
+.format-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+@media (max-width: 680px) { .format-columns { grid-template-columns: 1fr; } }
+.format-col-label { font-size: var(--fs-sm); font-weight: 700; color: var(--black); margin-bottom: 10px; }
+.format-code { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 18px; font-family: 'Courier New', monospace; font-size: 12.5px; color: var(--gray-800); line-height: 1.85; white-space: pre; overflow-x: auto; border-left: 3px solid var(--pink); }
+.format-notes { display: flex; flex-direction: column; gap: 8px; }
+.format-note { font-size: var(--fs-sm); color: var(--gray-600); padding: 10px 14px; background: var(--white); border-radius: var(--radius-sm); border: 1px solid var(--gray-200); line-height: 1.5; }
+
+/* Paste Main Card */
+.paste-main-card { background: var(--white); border: 2px solid var(--pink-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 24px; box-shadow: var(--shadow-md); }
+.paste-card-header { padding: 20px 28px; background: linear-gradient(135deg, var(--pink), var(--pink-dark)); display: flex; align-items: flex-start; flex-direction: column; gap: 4px; }
+.paste-card-title { font-size: var(--fs-lg); font-weight: 800; color: var(--white); }
+.paste-card-sub { font-size: var(--fs-sm); color: rgba(255,255,255,0.8); }
+.paste-card-body { padding: 28px; }
+.paste-top-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 22px; }
+@media (max-width: 640px) { .paste-top-row { grid-template-columns: 1fr; } }
+.field-label { display: block; font-size: var(--fs-sm); font-weight: 700; color: var(--black); margin-bottom: 8px; }
+.field-optional { font-weight: 400; color: var(--gray-400); font-size: var(--fs-xs); margin-left: 4px; }
+.paste-textarea-main { width: 100%; min-height: 420px; padding: 18px; font-family: 'Courier New', monospace; font-size: var(--fs-sm); color: var(--black); background: var(--surface); border: 2px solid var(--gray-200); border-radius: var(--radius-md); resize: vertical; transition: border-color 0.18s; line-height: 1.75; }
+.paste-textarea-main:focus { outline: none; border-color: var(--pink); background: var(--white); box-shadow: 0 0 0 3px rgba(255,105,180,0.12); }
+.paste-actions-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; gap: 12px; flex-wrap: wrap; }
+.paste-preview-count { font-size: var(--fs-sm); font-weight: 600; color: var(--gray-400); background: var(--gray-100); padding: 8px 16px; border-radius: 100px; }
+
+/* Preview panel */
+.preview-panel { margin-top: 20px; border: 2px solid var(--blue-light); border-radius: var(--radius-lg); overflow: hidden; }
+.preview-panel-header { background: var(--blue-pale); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; font-size: var(--fs-sm); font-weight: 700; color: var(--blue-dark); border-bottom: 1.5px solid var(--blue-light); }
+.preview-item { padding: 18px 20px; border-bottom: 1px solid var(--gray-200); background: var(--white); }
+.preview-item:last-child { border-bottom: none; }
+.preview-num { font-size: var(--fs-xs); font-weight: 700; color: var(--pink-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.preview-q { font-size: var(--fs-sm); font-weight: 600; color: var(--black); margin-bottom: 8px; line-height: 1.5; white-space: pre-wrap; }
+.preview-ctx-badge { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-xs); font-weight: 600; background: var(--blue-pale); color: var(--blue-dark); border: 1px solid var(--blue-light); border-radius: 100px; padding: 3px 10px; margin-bottom: 6px; }
+.preview-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.preview-opt { font-size: var(--fs-xs); padding: 3px 10px; border-radius: 100px; background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200); }
+.preview-opt.answer { background: var(--green-pale); color: var(--green); border-color: #BBF7D0; font-weight: 700; }
+.preview-error { font-size: var(--fs-xs); color: var(--red); background: var(--red-pale); border: 1px solid #FECACA; border-radius: var(--radius-sm); padding: 6px 12px; margin-top: 4px; }
+
+/* Bank section */
+.bank-section { margin-top: 16px; }
+.bank-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; }
+.bank-header h3 { font-size: var(--fs-lg); font-weight: 700; }
+.bank-count { background: linear-gradient(135deg, var(--pink), var(--blue)); color: var(--white); font-size: var(--fs-xs); font-weight: 700; padding: 5px 14px; border-radius: 100px; }
+.bank-filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.bank-filter-btn { background: var(--gray-100); color: var(--gray-600); border: 1.5px solid var(--gray-200); border-radius: 100px; padding: 8px 18px; font-family: 'Inter', sans-serif; font-size: var(--fs-sm); font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.bank-filter-btn:hover { border-color: var(--pink-light); color: var(--pink-dark); }
+.bank-filter-btn.active { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); color: var(--white); border-color: transparent; }
+.bank-list { display: flex; flex-direction: column; gap: 10px; }
+.bank-item { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; transition: box-shadow 0.15s; }
+.bank-item:hover { box-shadow: var(--shadow-sm); }
+.bank-item-num { background: linear-gradient(135deg, var(--pink-pale), var(--blue-pale)); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); width: 38px; height: 38px; min-width: 38px; display: flex; align-items: center; justify-content: center; font-size: var(--fs-sm); font-weight: 800; color: var(--pink-dark); flex-shrink: 0; }
+.bank-item-body { flex: 1; min-width: 0; }
+.bank-item-q { font-size: var(--fs-sm); font-weight: 600; color: var(--black); margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bank-item-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.meta-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; background: var(--gray-100); color: var(--gray-600); }
+.meta-tag.custom { background: var(--pink-pale); color: var(--pink-dark); border: 1px solid var(--pink-light); }
+.bank-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* shared form inputs still needed */
+.form-input, .form-select {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-base);
+  color: var(--black);
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  transition: border-color 0.18s;
+  line-height: 1.5;
+}
+.form-input:focus, .form-select:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,105,180,0.15); }
+
+/* ══════════════════════════════════════════
+   SECTION DIVIDER
+   ══════════════════════════════════════════ */
+.section-divider {
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--pink-light), var(--blue-light));
+  border: none;
+  margin: 36px 0;
+  border-radius: 100px;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .main { padding: 24px 16px 80px; }
+  .card-topbar, .card-body, .ctx-body { padding-left: 18px; padding-right: 18px; }
+  .result-hero { padding: 36px 18px 30px; }
+  .paste-section, .paste-helper { padding: 22px 18px; }
+  .header-nav { display: none; }
+}
+
+/* ══════════════════════════════════════════
+   SET SELECTOR CARDS
+   ══════════════════════════════════════════ */
+.set-card {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.set-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+}
+.set-card:hover {
+  border-color: var(--pink-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.set-card-num {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--pink-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.set-card-title {
+  font-size: var(--fs-md);
+  font-weight: 800;
+  color: var(--black);
+  line-height: 1.3;
+}
+.set-card-count {
+  font-size: var(--fs-sm);
+  color: var(--gray-600);
+  font-weight: 500;
+}
+.set-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.set-card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--blue-pale);
+  color: var(--blue-dark);
+  border: 1px solid var(--blue-light);
+}
+.set-card-btn {
+  margin-top: 8px;
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.18s;
+}
+.set-card-btn:hover { opacity: 0.9; }
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.flex-center { display: flex; align-items: center; justify-content: center; gap: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-icon">📚</div>
+      <div class="header-text">
+        <h1>Simulasi SNBT 2026</h1>
+        <p>Set Soal · Lit. B. Indonesia · B. Inggris · PPU · Penalaran</p>
+      </div>
+    </div>
+    <div class="header-nav">
+      <button class="nav-btn active" id="navTryout" onclick="switchView('tryout')">🎯 Tryout</button>
+      <button class="nav-btn" id="navAdd" onclick="switchView('add')">➕ Tambah Soal</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- ════════════════════════════════════
+       VIEW: TRYOUT
+       ════════════════════════════════════ -->
+  <div class="view active" id="viewTryout">
+
+    <!-- START -->
+    <div id="startScreen">
+      <div class="start-hero">
+        <span class="start-emoji">🎓</span>
+        <h2>Siap <span>Tryout</span>?</h2>
+        <p>Pilih set soal yang ingin dikerjakan. Setiap set berisi soal dengan urutan tetap sesuai aslinya.</p>
+        <div class="start-note">✅ Pembahasan langsung muncul setelah setiap soal dijawab</div>
+        <div class="stats-row">
+          <div class="stat-card"><span class="num" id="totalQ">—</span><span class="label">Total Soal</span></div>
+          <div class="stat-card"><span class="num" id="totalSets">—</span><span class="label">Total Set</span></div>
+          <div class="stat-card"><span class="num" id="totalGrp">—</span><span class="label">Kelompok Teks</span></div>
+          <div class="stat-card"><span class="num" id="customQ">0</span><span class="label">Soal Tambahan</span></div>
+        </div>
+      </div>
+
+      <!-- SET SELECTOR -->
+      <div id="setSelector">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h3 style="font-size:var(--fs-lg);font-weight:800;color:var(--black);margin-bottom:4px">📋 Pilih Set Soal</h3>
+            <p id="setSelectorSubtitle" style="font-size:var(--fs-sm);color:var(--gray-400)">Setiap set berisi hingga 20 soal dengan urutan tetap.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <label style="font-size:var(--fs-sm);font-weight:600;color:var(--gray-600)">Soal per set:</label>
+            <select class="form-select" id="setSize" style="width:auto;padding:10px 14px;font-size:var(--fs-sm);" onchange="renderSetList()">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+        </div>
+        <div id="setList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
+      </div>
+    </div>
+
+    <!-- QUIZ AREA -->
+    <div id="quizArea" class="hidden">
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span class="progress-label">🏃 Progress Sesi</span>
+          <span class="progress-count"><span class="accent" id="curQ">1</span> / <span id="totalInSession">—</span></span>
+          <button onclick="backToSets()" style="margin-left:auto;background:var(--gray-100);color:var(--gray-600);border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:7px 16px;font-family:'Inter',sans-serif;font-size:var(--fs-xs);font-weight:600;cursor:pointer;" title="Kembali ke daftar set">← Set Lain</button>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progFill" style="width:5%"></div></div>
+      </div>
+
+      <div class="q-card" id="qCard">
+        <div class="card-topbar">
+          <span class="badge-soal" id="qBadge">Soal 1</span>
+          <span class="badge-cat" id="qCat">—</span>
+          <span class="badge-group" id="qGrpTag"></span>
+        </div>
+        <div class="context-block hidden" id="ctxBlock">
+          <button class="ctx-toggle" onclick="toggleCtx(this)">
+            <span class="ctx-icon">📖</span>
+            <span id="ctxLabel">Baca Teks Pengantar</span>
+            <span class="ctx-arrow open" id="ctxArrow">▼</span>
+          </button>
+          <div class="ctx-body open" id="ctxBody"></div>
+        </div>
+        <div class="card-body">
+          <div class="question-label">Pertanyaan</div>
+          <div class="question-text" id="qText"></div>
+          <div class="options-grid" id="optList"></div>
+          <div class="feedback" id="feedbackBar">
+            <span class="feedback-icon" id="fbIcon"></span>
+            <span id="fbText"></span>
+          </div>
+          <div class="pem-wrap hidden" id="pemWrap">
+            <button class="pem-btn" onclick="togglePem(this)">
+              💡 <span class="pem-label">Lihat Pembahasan</span>
+              <span class="pem-arrow">▼</span>
+            </button>
+            <div class="pem-box" id="pemBox"></div>
+          </div>
+          <div class="next-wrap" id="nextWrap">
+            <button class="btn-blue" onclick="nextQuestion()" id="nextBtn">Soal Berikutnya ▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultScreen" class="hidden">
+      <div class="result-hero">
+        <div class="score-ring">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="60" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="9"/>
+            <circle cx="70" cy="70" r="60" fill="none" stroke="white" stroke-width="9"
+                    stroke-dasharray="377" id="scoreArc" stroke-linecap="round"/>
+          </svg>
+          <div class="score-inner">
+            <div class="score-num" id="scoreNum">0</div>
+            <div class="score-denom" id="scoreDenom">dari 20</div>
+          </div>
+        </div>
+        <div class="result-verdict" id="resultVerdict">—</div>
+        <div class="result-pct" id="resultPct">—</div>
+      </div>
+
+      <div class="review-header-row">
+        <div class="review-title">Kunci Jawaban &amp; Pembahasan</div>
+      </div>
+      <p class="review-sub">Klik "Lihat Pembahasan" di bawah setiap soal untuk membaca penjelasan lengkap.</p>
+      <div id="reviewList"></div>
+
+      <div class="result-footer">
+        <p id="resultFooterMsg">Terus berlatih — persiapan terbaik untuk SNBT 2026 dimulai dari sini! 🚀</p>
+        <div class="flex-center" style="flex-wrap:wrap;">
+          <button class="btn-pink" onclick="goNextSet()" id="btnNextSet" style="display:none">Set Berikutnya ▶</button>
+          <button class="btn-blue" onclick="restartQuiz()">↺ Pilih Set Soal</button>
+          <button class="btn-outline-pink" onclick="switchView('add')">➕ Tambah Soal Baru</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       VIEW: TAMBAH SOAL
+       ════════════════════════════════════ -->
+  <div class="view" id="viewAdd">
+    <div class="add-view-header">
+      <h2>➕ Tambah Soal ke Bank Soal</h2>
+      <p>Paste soal dari dokumen Word, PDF, atau sumber lain menggunakan format di bawah ini. Bisa sekaligus banyak soal — cukup susun berurutan.</p>
+    </div>
+
+    <!-- ── FORMAT GUIDE ── -->
+    <div class="format-guide">
+      <div class="format-guide-header">
+        <span class="format-guide-icon">📋</span>
+        <div>
+          <div class="format-guide-title">Format Input Soal</div>
+          <div class="format-guide-sub">Copy-paste soal menggunakan format ini. Untuk banyak soal, susun berurutan — sistem otomatis memisahkannya.</div>
+        </div>
+        <button class="btn-ghost" onclick="toggleFormatGuide()" id="toggleFmtBtn" style="margin-left:auto;white-space:nowrap">Sembunyikan ▲</button>
+      </div>
+      <div id="formatGuideBody">
+        <div class="format-columns">
+          <!-- Format Template -->
+          <div class="format-col">
+            <div class="format-col-label">📝 Template Format</div>
+            <div class="format-code">Soal Nomor 1
+Teks Bacaan:
+[teks bacaan di sini, atau kosongkan
+jika tidak ada / sama dengan soal sebelumnya]
+
+Pertanyaan:
+[teks pertanyaan di sini]
+Pilihan Jawaban:
+A. [pilihan A]
+B. [pilihan B]
+C. [pilihan C]
+D. [pilihan D]
+E. [pilihan E]
+Jawaban: A. [teks jawaban]
+Pembahasan:
+[penjelasan jawaban]</div>
+          </div>
+          <!-- Contoh Nyata -->
+          <div class="format-col">
+            <div class="format-col-label">✅ Contoh Nyata</div>
+            <div class="format-code">Soal Nomor 1
+Teks Bacaan:
+Cats also called the domestic cat or house
+cat (Felis catus) is a type of carnivorous
+mammal of the family Felidae...
+
+Pertanyaan:
+"...but these traits are better developed
+in cats." The word traits could best be
+replaced by …..
+Pilihan Jawaban:
+A. Tries
+B. Trails
+C. Trials
+D. Characteristics
+E. Characterized
+Jawaban: D. Characteristics
+Pembahasan:
+Characteristics (karakter/ciri-ciri) adalah
+persamaan kata dari traits.</div>
+          </div>
+        </div>
+        <div class="format-notes">
+          <div class="format-note">💡 <strong>Teks Bacaan kosong</strong> = soal tidak punya bacaan, atau otomatis pakai bacaan soal sebelumnya (dalam kelompok yang sama)</div>
+          <div class="format-note">📦 <strong>Banyak soal</strong> = susun berurutan "Soal Nomor 1", "Soal Nomor 2", dst. Sistem otomatis memisahkan.</div>
+          <div class="format-note">🔗 <strong>Soal kelompok</strong> = soal dengan teks bacaan yang sama akan otomatis dikelompokkan bersama</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PASTE AREA ── -->
+    <div class="paste-main-card">
+      <div class="paste-card-header">
+        <div class="paste-card-title">📥 Tempel Soal di Sini</div>
+        <div class="paste-card-sub">Bisa satu atau banyak soal sekaligus</div>
+      </div>
+
+      <div class="paste-card-body">
+        <!-- Kategori & Kelompok -->
+        <div class="paste-top-row">
+          <div class="paste-top-field">
+            <label class="field-label">🗂️ Kategori / Mata Uji</label>
+            <select class="form-select" id="pasteCat">
+              <option value="Literasi B. Indonesia">Literasi B. Indonesia</option>
+              <option value="Literasi B. Inggris">Literasi B. Inggris</option>
+              <option value="Penalaran Umum">Penalaran Umum</option>
+              <option value="Penalaran Matematika">Penalaran Matematika</option>
+              <option value="Pengetahuan & Pemahaman Umum">PPU (Pengetahuan & Pemahaman Umum)</option>
+              <option value="Pengetahuan Kuantitatif">Pengetahuan Kuantitatif</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="paste-top-field">
+            <label class="field-label">🏷️ Label Kelompok Teks <span class="field-optional">(opsional)</span></label>
+            <input type="text" class="form-input" id="pasteGroupLabel" placeholder="cth: Teks: Artikel Kucing, Novel: Gadis Kretek">
+          </div>
+        </div>
+
+        <!-- Main textarea -->
+        <label class="field-label" style="margin-bottom:10px">Paste soal di sini:</label>
+        <textarea class="paste-textarea-main" id="pasteArea"
+          placeholder="Soal Nomor 1&#10;Teks Bacaan:&#10;[teks bacaan atau kosongkan]&#10;&#10;Pertanyaan:&#10;[teks pertanyaan]&#10;Pilihan Jawaban:&#10;A. ...&#10;B. ...&#10;C. ...&#10;D. ...&#10;E. ...&#10;Jawaban: A. ...&#10;Pembahasan:&#10;[penjelasan]&#10;&#10;Soal Nomor 2&#10;..."></textarea>
+
+        <!-- Counter & actions -->
+        <div class="paste-actions-row">
+          <div class="paste-preview-count" id="previewCount">—</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-ghost" onclick="previewParse()">👁️ Preview Soal</button>
+            <button class="btn-ghost" onclick="clearPasteArea()">🗑️ Kosongkan</button>
+            <button class="btn-pink" onclick="parsePaste()">⚡ Tambahkan ke Bank Soal</button>
+          </div>
+        </div>
+
+        <!-- Parse result feedback -->
+        <div class="parse-result" id="parseResult"></div>
+
+        <!-- Preview panel -->
+        <div class="preview-panel hidden" id="previewPanel">
+          <div class="preview-panel-header">
+            <span>👁️ Preview Soal Terdeteksi</span>
+            <button class="btn-ghost" onclick="document.getElementById('previewPanel').classList.add('hidden')" style="padding:6px 12px;font-size:var(--fs-xs)">✕ Tutup</button>
+          </div>
+          <div id="previewList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BANK SOAL ── -->
+    <hr class="section-divider">
+    <div class="bank-section">
+      <div class="bank-header">
+        <h3>📦 Bank Soal Saat Ini</h3>
+        <span class="bank-count" id="bankCount">— soal</span>
+      </div>
+      <p style="font-size:var(--fs-sm);color:var(--gray-400);margin-bottom:18px">Soal bawaan + soal yang kamu tambahkan. Semua soal ini dapat muncul saat tryout.</p>
+
+      <!-- Filter -->
+      <div class="bank-filter-row">
+        <button class="bank-filter-btn active" data-filter="all" onclick="filterBank('all',this)">Semua</button>
+        <button class="bank-filter-btn" data-filter="custom" onclick="filterBank('custom',this)">✨ Soal Tambahan Saja</button>
+        <button class="bank-filter-btn" data-filter="builtin" onclick="filterBank('builtin',this)">📚 Soal Bawaan</button>
+      </div>
+
+      <div id="bankList" class="bank-list"></div>
+      <div id="bankEmpty" class="hidden" style="text-align:center;padding:36px;color:var(--gray-400);font-size:var(--fs-base)">Belum ada soal yang sesuai filter.</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// BANK SOAL BAWAAN (dari file SNBT sebelumnya)
+// ══════════════════════════════════════════════════════════
+const SOAL_BAWAAN = [
+// ════════════════════════════════════════
+// PENALARAN UMUM (Soal 1-30)
+// ════════════════════════════════════════
+{id:1,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Studi yang dilakukan oleh para peneliti di University of Toronto menemukan bahwa konsumsi madu mentah memiliki efek paling positif pada tubuh. Dampak positif konsumsi madu mentah adalah penurunan glukosa darah dan jumlah lipoprotein densitas rendah (kolesterol jahat) dalam darah. Dilansir dari Medical News Today, madu kemasan pabrik biasanya sudah melalui proses pasteurisasi, sedangkan madu mentah yang langsung diambil dari peternakan tidak mengalami proses tersebut.</p>`,
+question:`Berdasarkan teks tersebut, pernyataan yang PASTI SALAH adalah ... (Jawaban bisa lebih dari satu)`,
+options:["Mengonsumsi madu mentah dapat menaikkan kadar glukosa darah dalam tubuh.","Mengonsumsi madu mentah memiliki efek negatif untuk kesehatan tubuh.","Mengonsumsi madu mentah dapat meningkatkan risiko diabetes melitus.","Mengonsumsi madu mentah dapat menurunkan jumlah kolesterol jahat.","Mengonsumsi madu pasteurisasi dapat meningkatkan kesehatan tubuh."],
+answer:0,pembahasan:`Opsi 1 dan 2 PASTI SALAH. Berdasarkan teks, madu mentah menurunkan glukosa darah (bukan menaikkan) dan memiliki efek positif (bukan negatif). Opsi 3 tidak didukung teks. Opsi 4 sesuai teks (benar). Opsi 5 tidak dibahas dalam teks. <strong>Jawaban: Opsi 1 (A)</strong> yang pasti salah dari pilihan yang ada.`},
+
+{id:2,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>PT Pertamina kembali menyesuaikan harga bahan bakar minyak (BBM) nonsubsidi per Kamis, 1 Desember 2022. BBM nonsubsidi yang mengalami penyesuaian harga adalah jenis Pertamax Turbo (RON 98), Dexlite (CN 51), dan Pertamina Dex (CN 53). Harga Pertamax Turbo naik dari Rp14.300–Rp14.900 per liter menjadi Rp15.200–Rp15.800 per liter. Harga Dexlite dari semula Rp18.000–Rp18.700 per liter naik menjadi Rp18.300–Rp19.000 per liter. Sementara itu, harga Pertamina Dex yang semula Rp18.550–Rp19.350 per liter naik menjadi Rp18.800–Rp19.600 per liter.</p>`,
+question:`Harga BBM dinyatakan dalam rentang tertentu karena harga di sejumlah pom bensin berbeda-beda. Diasumsikan kenaikan harga bernilai sama di semua pom bensin. Berdasarkan teks tersebut, pernyataan yang PASTI BENAR adalah…`,
+options:["PT Pertamina kembali menyesuaikan harga empat jenis BBM nonsubsidi","BBM nonsubsidi jenis dexlite mengalami kenaikan harga sebesar Rp900,00.","BBM nonsubsidi jenis pertamina dex mengalami kenaikan harga sebesar Rp300,00.","BBM nonsubsidi jenis pertamax turbo mengalami kenaikan harga paling besar.","BBM nonsubsidi pertama kalinya mengalami penyesuaian harga di bulan Desember 2022"],
+answer:3,pembahasan:`Pertamax Turbo naik Rp900, Dexlite naik Rp300, Pertamina Dex naik Rp250. Pertamax Turbo memiliki kenaikan terbesar (Rp900). Opsi A salah (hanya 3 jenis). Opsi B salah (Dexlite naik Rp300). Opsi C salah (Pertamina Dex naik Rp250). Opsi E tidak didukung teks. <strong>Jawaban D.</strong>`},
+
+{id:3,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>CEO Tesla Elon Musk akan melakukan uji coba cip otak nirkabel Neuralink pada manusia dalam enam bulan ke depan. Menurut Musk, cip tersebut memungkinkan pasien yang cacat untuk bergerak dan berkomunikasi lagi. Berbasis di San Francisco Bay Area dan Austin, Texas, Neuralink dalam beberapa tahun terakhir telah melakukan tes pada hewan guna mendapatkan persetujuan dari Food and Drug Administration (FDA) AS untuk memulai uji klinis pada manusia.</p>`,
+question:`Pernyataan yang PALING MUNGKIN BENAR berdasarkan teks tersebut adalah ...`,
+options:["CEO Tesla Elon Musk akan melakukan uji coba cip otak nirkabel Neuralink pada manusia dalam lima bulan ke depan.","Neuralink melakukan uji klinis terhadap tumbuhan untuk mendapatkan persetujuan dari Food and Drug Administration.","Menurut Musk, cip otak memungkinkan orang yang mengalami kelumpuhan dapat berjalan normal kembali.","Organisasi Neuralink yang memproduksi cip otak berbasis di San Francisco Bay Area dan Austin, Meksiko.","CEO Elon Musk mengatakan, cip otak yang diproduksi oleh Neuralink akan langsung diuji cobakan kepada hewan."],
+answer:2,pembahasan:`Opsi C paling mungkin benar karena sesuai konteks teks (cip memungkinkan pasien cacat untuk bergerak). A salah (teks menyebut 6 bulan). B salah (tes pada hewan bukan tumbuhan). D salah (Austin, Texas bukan Meksiko). E salah (uji pada manusia, bukan hewan). <strong>Jawaban C.</strong>`},
+
+{id:4,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Guru Besar Fakultas Ekologi Manusia Institut Pertanian Bogor (IPB), Prof. Ali Khomsan, mengatakan bahwa konsumsi sayur dan buah masyarakat Indonesia mencapai 100 gram per kapita per hari, sedangkan anjuran WHO untuk konsumsi buah dan sayur sebanyak 400 gram per kapita per hari. "Rata-rata kita baru memenuhi kurang lebih 25 persen dari anjuran WHO," kata Prof. Ali. Prof. Ali menekankan, saat dihitung menurut segmen umur, konsumsi sayur dan buah sebesar 100 gram per kapita per hari itu merata.</p>`,
+question:`Kesimpulan yang paling tepat dari teks tersebut adalah…`,
+options:["WHO menganjurkan untuk mengonsumsi buah sebanyak 400 gram per kapita per hari.","Masyarakat Indonesia memiliki kebiasaan memakan sayur dan buah yang baik.","WHO menilai bahwa konsumsi buah sebesar 100 gram per kapita per hari cukup.","Masyarakat Indonesia perlu mengimpor sayur dan buah agar nutrisinya terpenuhi.","Kebiasaan mengonsumsi sayur dan buah masyarakat Indonesia masih rendah."],
+answer:4,pembahasan:`Indonesia hanya memenuhi 25% dari anjuran WHO (100 gram dari 400 gram). Ini menunjukkan kebiasaan konsumsi sayur dan buah masyarakat Indonesia masih sangat rendah. <strong>Jawaban E.</strong>`},
+
+{id:5,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>PT X adalah perusahaan perdagangan berbasis daring atau biasa disebut sebagai e-commerce. Pada tahun ini, PT X mengalami penurunan jumlah pelanggan. Menurut jajaran direksi, hal ini diakibatkan banyak pelanggan yang beralih ke e-commerce kompetitor yang memiliki fitur belanja saat menonton siaran langsung. Jajaran direksi meyakini bahwa banyak orang merasa lebih aman dan nyaman ketika berbelanja sembari menonton siaran langsung.</p>`,
+question:`Pernyataan yang MEMPERKUAT argumen jajaran direksi PT X adalah…`,
+options:["Pihak kepolisian memberikan data bahwa terjadi peningkatan angka penipuan saat belanja daring.","Jumlah pelanggan PT X lebih rendah dibandingkan jumlah pelanggan perusahaan kompetitor.","Perusahaan kompetitor yang memiliki fitur live chat mengalami peningkatan jumlah pelanggan.","Belum ada e-commerce yang mempunyai fitur siaran langsung tahun lalu.","PT X mengembangkan fitur belanja saat menonton siaran langsung mulai tahun depan."],
+answer:3,pembahasan:`Opsi D memperkuat argumen direksi bahwa fitur siaran langsung kompetitor adalah daya tarik baru yang menyebabkan pelanggan beralih, karena sebelumnya fitur tersebut belum ada. <strong>Jawaban D.</strong>`},
+
+{id:6,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Menteri Koordinator Bidang Kemaritiman dan Investasi (Menko Marves), Luhut Binsar Pandjaitan, menyebut subsidi pembelian kendaraan listrik baik untuk mobil ataupun motor yang akan mulai diterapkan 2023 mendatang. Pemerintah memberikan subsidi sebagai upaya merangsang daya beli masyarakat Indonesia ke kendaraan elektrifikasi yang ramah lingkungan sembari mencapai target RI menuju Zero Emission pada 2060 mendatang. Luhut juga menyampaikan saat ini pemerintah tengah berupaya menyelesaikan skema pemberian subsidi sekitar Rp6,5 juta.</p>`,
+question:`Pernyataan yang MEMPERLEMAH argumen Luhut Binsar Pandjaitan adalah…`,
+options:["Pemberian subsidi pembelian kendaraan listrik akan dimulai pada akhir tahun 2023","Pembangunan stasiun pengisian kendaraan listrik umum belum merata di Indonesia.","Pemerintah menargetkan Indonesia akan bebas emisi di tahun 2060 mendatang","Subsidi yang diberikan pemerintah dapat merangsang daya beli masyarakat.","Penggunaan kendaraan listrik akan memiliki dampak positif dan negatif."],
+answer:1,pembahasan:`Opsi B memperlemah argumen karena tanpa infrastruktur pengisian yang memadai, subsidi kendaraan listrik tidak akan efektif merangsang daya beli masyarakat. <strong>Jawaban B.</strong>`},
+
+{id:7,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Peneliti A menyatakan, daun tanaman X mengalami evolusi karena lingkungannya yang bersifat ekstrem. Peneliti B menyatakan, tanaman X tidak memiliki zat hijau daun sehingga mengalami evolusi. Hasil penelitian terbaru menyatakan bahwa tanaman X mengalami evolusi karena beradaptasi dengan habitatnya.
+
+Tentukan apakah pernyataan berikut bernilai BENAR atau SALAH:
+Hasil penelitian terbaru memperkuat pernyataan peneliti A.`,
+options:["BENAR","SALAH","Tidak dapat ditentukan","Mungkin benar","Mungkin salah"],
+answer:0,pembahasan:`Peneliti A menyebut evolusi karena lingkungan ekstrem. Penelitian terbaru menyebut evolusi karena beradaptasi dengan habitat — keduanya berkaitan dengan lingkungan, sehingga MEMPERKUAT peneliti A. <strong>Jawaban BENAR.</strong>`},
+
+{id:8,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Banyak faktor yang memengaruhi keadaan suhu suatu tempat. Salah satunya adalah ketinggian. Makin tinggi suatu tempat, makin dingin pula biasanya tempat tersebut.</p>`,
+question:`Pernyataan berikut yang paling menjelaskan akibat dari tingginya suatu tempat adalah ...`,
+options:["Kebanyakan orang di pegunungan tidak membutuhkan jaket.","Angin bertiup dengan sangat kencang di wilayah-wilayah dataran tinggi.","Ada daerah yang diselimuti hawa dingin walaupun jauh dari pegunungan.","Banyak pendaki gunung yang menggunakan jaket karena suhu yang tinggi di wilayah gunung.","Banyak warung di daerah pegunungan yang menjual aneka makanan dan minuman hangat."],
+answer:4,pembahasan:`Opsi E paling menjelaskan akibat suhu dingin di dataran tinggi — penjual menyediakan makanan dan minuman hangat sebagai respons terhadap suhu dingin di pegunungan. <strong>Jawaban E.</strong>`},
+
+{id:9,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Dilansir dari NPR, virus corona SARS-CoV-2 varian Omicron dan Delta sama-sama penyebab Covid-19. Penelitian menunjukkan, Covid-19 varian Delta dua kali lebih menular apabila dibandingkan varian sebelumnya. Selain itu, Covid-19 varian Delta terbukti menyebabkan infeksi yang parah dibandingkan varian sebelumnya apabila menyerang penderita yang belum divaksinasi. Menurut WHO, Covid-19 varian Omicron lebih menular dibandingkan varian lain, termasuk Delta. Di beberapa kasus, Covid-19 varian Omicron menyebabkan gejala yang tidak terlalu parah. Terutama pada penderita yang sudah divaksinasi, usia muda, dan tanpa komorbid atau penyakit penyerta.</p>`,
+question:`Pernyataan berikut yang paling menjelaskan perbedaan yang disebutkan pada teks adalah…`,
+options:["Covid-19 varian Omicron menyebabkan gejala yang tidak terlalu parah.","Covid-19 varian Omicron lebih menular dibandingkan varian Delta.","Virus corona SARS-CoV-2 varian Omicron dan Delta sama-sama penyebab Covid-19.","Penderita Covid-19 yang sudah divaksin tidak menunjukkan gejala yang parah.","Penderita Covid-19 yang memiliki penyakit penyerta menunjukkan gejala yang ringan."],
+answer:1,pembahasan:`Perbedaan utama yang dibahas teks adalah tingkat penularan (Omicron &gt; Delta) dan tingkat keparahan. Opsi B paling tepat menggambarkan perbedaan tersebut. <strong>Jawaban B.</strong>`},
+
+{id:10,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Manfaat tumbuhan bagi makhluk hidup adalah menyerap karbon dioksida serta melepaskan oksigen. Hewan juga membutuhkan tumbuhan sebagai sumber makanannya. Herbivor, seperti sapi, kuda, gajah, rusa, jerapah, dan panda menggantungkan hidupnya pada tumbuhan. Manusia juga memerlukan sayuran dan buah-buahan yang dihasilkan dari beberapa jenis tumbuhan agar kebutuhan nutrisinya tercukupi. Tak hanya itu, tumbuhan yang diolah menjadi kompos bisa menyuburkan tanah. Sementara sisa tumbuhan yang telah lapuk di atas tanah dapat dimanfaatkan cacing sebagai sumber makanan.</p>`,
+question:`Pernyataan berikut yang didukung oleh teks di atas adalah ...`,
+options:["Makhluk hidup tidak akan bisa hidup di Bumi apabila tidak ada tumbuhan.","Tumbuhan menghasilkan karbon dioksida yang penting untuk makhluk hidup.","Tumbuhan selalu menggantungkan hidupnya pada manusia dan juga hewan.","Manusia dan hewan merupakan penyumbang karbon dioksida terbesar di Bumi.","Tumbuhan membutuhkan nutrisi yang cukup agar bisa tumbuh dan berkembang dengan baik."],
+answer:0,pembahasan:`Berdasarkan teks, tumbuhan menyediakan oksigen, makanan bagi hewan dan manusia, serta menyuburkan tanah. Hal ini mendukung kesimpulan bahwa makhluk hidup sangat bergantung pada tumbuhan. <strong>Jawaban A.</strong>`},
+
+{id:11,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Tidak seorangpun peserta UTBK diizinkan memotret soal-soal ujian.
+Sebagian siswa SMA Kasih Ibu menjadi peserta UTBK.
+
+Simpulan dari kedua pernyataan di atas adalah ...`,
+options:["Semua siswa yang tidak diizinkan memotret soal-soal ujian bukan siswa SMA Kasih Ibu.","Semua siswa SMA Kasih Ibu yang menjadi peserta UTBK tidak diizinkan memotret soal-soal ujian.","Tumbuhan selalu menggantungkan hidupnya pada manusia dan juga hewan.","Sebagian siswa yang diizinkan memotret soal-soal ujian adalah siswa SMA Kasih Ibu.","Sebagian siswa yang bukan SMA Kasih Ibu tidak diizinkan memotret soal-soal ujian."],
+answer:1,pembahasan:`Premis 1: Semua peserta UTBK tidak diizinkan memotret. Premis 2: Sebagian siswa SMA Kasih Ibu adalah peserta UTBK. Kesimpulan: Sebagian (yang menjadi peserta UTBK) siswa SMA Kasih Ibu tidak diizinkan memotret. <strong>Jawaban B.</strong>`},
+
+{id:12,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Jika sebuah komputer tidak layak digunakan untuk bekerja, maka proses bootingnya lama, sering mengalami not responding, dan muncul blue screen secara tiba-tiba. Hal-hal tersebut membuat komputer tidak dapat dijual kembali.</p>`,
+question:`Jika sebuah komputer hanya sesekali mengalami not responding, proses bootingnya sebentar, dan tidak pernah muncul blue screen, maka simpulan yang PALING TEPAT terkait komputer tersebut adalah ....`,
+options:["tidak layak digunakan untuk bekerja","layak digunakan untuk bekerja","layak digunakan untuk bermain","tidak dapat dijual kembali","dapat dijual kembali"],
+answer:1,pembahasan:`Kontraposisi dari "Jika tidak layak → booting lama, not responding, blue screen" adalah "Jika tidak booting lama, tidak not responding, tidak blue screen → layak digunakan". Kondisi yang disebutkan merupakan negasi dari kondisi tidak layak, sehingga komputer tersebut layak digunakan untuk bekerja. <strong>Jawaban B.</strong>`},
+
+{id:13,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Jika hujan deras mengguyur, maka jalan protokol banjir.
+Jika jalan protokol banjir, maka terjadi kemacetan di semua daerah.
+
+Simpulan yang tepat adalah ...`,
+options:["Jika hujan deras tidak mengguyur, maka terjadi kemacetan di sebagian daerah.","Jika hujan deras tidak mengguyur, maka tidak terjadi kemacetan di semua daerah.","Jika hujan deras mengguyur, maka tidak terjadi kemacetan di semua daerah.","Jika hujan deras mengguyur, maka terjadi kemacetan di sebagian daerah.","Jika hujan deras mengguyur, maka terjadi kemacetan di semua daerah."],
+answer:4,pembahasan:`Silogisme hipotetis. P1: Hujan deras → banjir. P2: Banjir → macet semua daerah. Kesimpulan: Hujan deras → macet semua daerah. <strong>Jawaban E.</strong>`},
+
+{id:14,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Semua gunung memiliki hutan.
+Sebagian hutan yang ada di gunung adalah hutan lindung.
+
+Simpulan yang tepat adalah ...`,
+options:["Sebagian gunung memiliki hutan lindung dan sebagian lagi tidak memiliki hutan.","Sebagian hutan lindung berada di luar daerah gunung.","Sebagian gunung tidak memiliki hutan lindung.","Semua gunung tidak memiliki hutan lindung.","Semua gunung memiliki hutan lindung"],
+answer:2,pembahasan:`Premis 1: Semua gunung memiliki hutan. Premis 2: Sebagian hutan di gunung adalah hutan lindung (berarti sebagian lainnya bukan hutan lindung). Maka sebagian gunung tidak memiliki hutan lindung. <strong>Jawaban C.</strong>`},
+
+{id:15,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Kalimat yang ekuivalen dengan "Jika Risman pergi melaut siang ini, maka cuaca sedang tidak terik" adalah ...`,
+options:["Risman tidak pergi melaut siang ini dan cuaca sedang tidak terik.","Cuaca sedang tidak terik atau Risman tidak pergi melaut siang ini.","Risman tidak pergi melaut siang ini atau cuaca sedang terik.","Risman pergi melaut siang ini atau cuaca sedang terik.","Cuaca sedang terik dan Risman pergi melaut hari ini."],
+answer:1,pembahasan:`"Jika p maka q" ekuivalen dengan "tidak p atau q". Pernyataan: "Jika Risman pergi melaut (p), maka cuaca tidak terik (q)". Ekuivalen: "Risman tidak pergi melaut atau cuaca tidak terik" = Opsi B. <strong>Jawaban B.</strong>`},
+
+{id:16,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Setiap hari Minggu pagi, Taman SukaSuka mengadakan senam bersama dan sarapan gratis untuk umum. Semua orang yang telah mengikuti senam dapat mengambil sarapan gratis dan harus tertib antrian.<br>• Sarah berada pada urutan kedua di depan Uzu, sedangkan Uzu berbaris di belakang Dinda.<br>• Mei berada pada baris kelima di depan Uzu atau tepatnya baris kedua di belakang Herdi.<br>• Tiap orang membutuhkan waktu tepat 2 menit untuk memilih makanan.</p>`,
+question:`Berdasarkan ilustrasi tersebut, Sarah mendapat giliran memilih makanan ... menit setelah Herdi.`,
+options:["4","6","8","10","12"],
+answer:3,pembahasan:`Mei berada 2 baris di belakang Herdi, dan 5 baris di depan Uzu. Maka: Herdi - Mei (2 jarak) - ... - Uzu. Uzu di posisi ke-(Herdi+7). Sarah 2 di depan Uzu = Herdi+5. Selisih posisi Sarah dan Herdi = 5. Waktu = 5 × 2 = <strong>10 menit</strong>. Jawaban D.`},
+
+{id:17,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Suatu konferensi dihadiri 8 orang perwakilan negara: 2 dari Indonesia, 1 dari Singapura, 2 dari Malaysia, 1 dari Brunei Darussalam, 1 dari Thailand, dan 1 dari Filipina. Tiap perwakilan dari negara yang sama duduk bersebelahan. Perwakilan dari Singapura duduk berhadapan dengan perwakilan dari Filipina.</p>`,
+question:`Jika perwakilan dari Singapura duduk berhadapan dengan perwakilan dari Filipina, pernyataan berikut yang TIDAK MUNGKIN terjadi adalah ...`,
+options:["Perwakilan dari Filipina duduk di antara perwakilan dari Indonesia dan Brunei Darussalam.","Perwakilan dari Singapura duduk di antara perwakilan dari Thailand dan Malaysia.","Kedua perwakilan dari Malaysia duduk berhadapan dengan perwakilan dari Indonesia.","Perwakilan dari Indonesia duduk bersebelahan dengan perwakilan dari Malaysia","Perwakilan dari Thailand duduk bersebelahan dengan perwakilan dari Filipina."],
+answer:3,pembahasan:`Jika Singapura berhadapan dengan Filipina, dan setiap negara yang sama duduk bersebelahan, maka Indonesia (2 orang) dan Malaysia (2 orang) harus duduk bersebelahan dengan kelompoknya sendiri. Opsi D tidak mungkin terjadi karena akan memisahkan salah satu pasangan. <strong>Jawaban D.</strong>`},
+
+{id:18,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Kevin, Lulu, Made, Nia, dan Oxy telah mengikuti sebuah tes uji coba Ujian Nasional. Nilai Made lebih tinggi daripada Oxy dan Kevin. Nilai Lulu lebih rendah daripada Nia dan Oxy. Nilai Nia lebih tinggi daripada Kevin, tetapi lebih rendah daripada Oxy.</p>`,
+question:`Jika tidak ada dua orang yang mendapatkan nilai yang sama, pernyataan berikut ini yang TIDAK MUNGKIN terjadi adalah ...`,
+options:["Lulu mendapatkan nilai terendah.","Nilai Kevin lebih tinggi daripada Lulu.","Nilai Oxy berada di antara Made dan Nia","Nilai Nia berada di urutan tengah-tengah.","Nilai Kevin berada di urutan tertinggi kedua."],
+answer:4,pembahasan:`Urutan dari keterangan: Made &gt; Oxy &gt; Nia &gt; Kevin, dan Oxy &gt; Lulu, Nia &gt; Lulu. Jadi Kevin tidak mungkin berada di urutan tertinggi kedua karena Made, Oxy, dan Nia semuanya lebih tinggi dari Kevin. <strong>Jawaban E.</strong>`},
+
+{id:19,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Riana biasa melakukan beberapa kegiatan sebelum tidur: makan malam, minum susu, menggosok gigi, mandi, atau membaca buku. Ia selalu makan malam, tetapi tidak selalu minum susu. Apabila ia minum susu, ia melakukannya setelah makan malam. Menggosok gigi dilakukan setelah makan malam atau minum susu. Setelah selesai menggosok gigi, ia mandi atau membaca buku, tapi tidak keduanya. Riana baru bisa tidur setelah selesai mandi atau membaca buku.</p>`,
+question:`Urutan kegiatan berikut yang TIDAK MUNGKIN Riana lakukan agar ia bisa tidur adalah…`,
+options:["makan malam – menggosok gigi – mandi – tidur","makan malam – menggosok gigi – membaca","makan malam – minum susu – menggosok gigi – mandi – tidur","makan malam – minum susu – menggosok gigi – membaca buku – tidur","makan malam – menggosok gigi – minum susu – membaca buku – tidur"],
+answer:4,pembahasan:`Opsi E tidak mungkin karena jika minum susu, harus dilakukan setelah makan malam dan SEBELUM menggosok gigi, bukan setelah menggosok gigi. <strong>Jawaban E.</strong>`},
+
+{id:20,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Septy, Rian, dan Alya masing-masing membeli pulpen di toko alat tulis A, B, dan C. Pulpen yang dibeli Septy lebih banyak dari pulpen yang dibeli Alya, tetapi tidak melebihi banyak pulpen yang dibeli Rian. Saat membayar, uang yang dibayarkan Alya lebih banyak dari Septy, tetapi tidak lebih banyak dari Rian.</p>`,
+question:`Pernyataan berikut yang PASTI BENAR adalah ...`,
+options:["Harga pulpen di toko A lebih murah dari harga pulpen di toko C.","Harga pulpen di toko B lebih mahal dari harga pulpen di toko C.","Toko C menjual pulpen dengan harga yang paling mahal.","Toko A menjual pulpen dengan harga yang paling murah.","Toko A dan B menjual pulpen dengan harga yang sama."],
+answer:0,pembahasan:`Rian &gt; Septy &gt; Alya (jumlah). Rian &gt; Alya &gt; Septy (uang dibayar). Karena Alya membeli lebih sedikit dari Septy tapi bayar lebih banyak, harga pulpen di toko Alya lebih mahal. Karena Septy membeli lebih banyak dari Alya tapi bayar lebih sedikit, harga pulpen Septy (Toko A) lebih murah dari Alya (Toko C). <strong>Jawaban A.</strong>`},
+
+{id:21,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Amin, Bety, Cokro, Dian, dan Eko mencalonkan diri sebagai ketua OSIS.<br>• Bety, Cokro, Dian: Program Keterampilan Siswa (45 suara)<br>• Amin, Cokro, Eko: Program Olahraga bagi Siswa (60 suara)<br>• Amin, Bety: Program Sukses Akademik (50 suara)<br>• Dian, Eko: Program Kebersamaan Guru dan Siswa (30 suara)</p>`,
+question:`Jika jumlah suara dibagi sama banyak kepada setiap calon yang mengusung program yang sama, calon yang paling banyak dipilih oleh siswa adalah ....`,
+options:["Amin","Bety","Cokro","Dian","Eko"],
+answer:0,pembahasan:`Amin: 60/3 + 50/2 = 20 + 25 = 45 suara. Bety: 45/3 + 50/2 = 15 + 25 = 40 suara. Cokro: 45/3 + 60/3 = 15 + 20 = 35 suara. Dian: 45/3 + 30/2 = 15 + 15 = 30 suara. Eko: 60/3 + 30/2 = 20 + 15 = 35 suara. <strong>Amin mendapat suara terbanyak = 45 suara. Jawaban A.</strong>`},
+
+{id:22,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Hasil dari 3 × (1/10 + 1/40 + 1/88 + 1/154 + ... + 1/40.600) adalah…`,
+options:["101/200","99/200","404/406","205/406","201/406"],
+answer:4,pembahasan:`Penyebut: 10, 40, 88, 154, ... mengikuti pola yang dapat difaktorkan. Hasil jumlah deret setelah disederhanakan × 3 = <strong>201/406</strong>. Jawaban E.`},
+
+{id:23,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Pak Toni: gaji Rp4.500.000 + bonus 10% = Rp4.950.000/bulan.<br>Pak Tono: beli mangga Rp28.000/kg jual Rp33.000/kg (untung Rp5.000/kg). Beli jeruk Rp34.500/kg jual Rp42.000/kg (untung Rp7.500/kg).</p>`,
+question:`Kondisi berikut yang menyebabkan keuntungan Pak Tono lebih besar daripada penghasilan bulanan Pak Toni adalah…`,
+options:["terjual 320 kg mangga dan 420 kg jeruk","terjual 390 kg mangga dan 400 kg jeruk","terjual 400 kg mangga dan 390 kg jeruk","terjual 500 kg mangga dan 330 kg jeruk","terjual 550 kg mangga dan 290 kg jeruk"],
+answer:3,pembahasan:`Penghasilan Pak Toni = Rp4.950.000. Opsi D: 500×5.000 + 330×7.500 = 2.500.000 + 2.475.000 = Rp4.975.000 &gt; Rp4.950.000. ✓ <strong>Jawaban D.</strong>`},
+
+{id:24,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Urutan bilangan berikut dari yang terkecil hingga terbesar yang benar adalah ...
+Bilangan: 4/5 ; 0,333 ; 10⁻¹ ; 60% ; 1¼`,
+options:["4/5 ; 0,333 ; 10⁻¹ ; 60% ; 1¼","0,333 ; 1¼ ; 10⁻¹ ; 4/5 ; 60%","10⁻¹ ; 0,333 ; 60% ; 4/5 ; 1¼","1¼ ; 60% ; 10⁻¹ ; 0,333 ; 4/5","60% ; 10⁻¹ ; 4/5 ; 0,333 ; 1¼"],
+answer:2,pembahasan:`Konversi ke desimal: 10⁻¹ = 0,1 ; 0,333 ≈ 0,333 ; 60% = 0,6 ; 4/5 = 0,8 ; 1¼ = 1,25. Urutan terkecil ke terbesar: 0,1 &lt; 0,333 &lt; 0,6 &lt; 0,8 &lt; 1,25 → <strong>Jawaban C.</strong>`},
+
+{id:25,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Grafik rata-rata harga beras di penggilingan:<br>• 2020: Kualitas Luar Rp8.750, Kualitas Medium Rp9.010, Kualitas Premium Rp9.305<br>• 2021: Kualitas Luar Rp9.140, Kualitas Medium Rp9.485, Kualitas Premium Rp9.730</p>`,
+question:`Berdasarkan grafik tersebut, pernyataan berikut yang BENAR adalah ...`,
+options:["Persentase peningkatan rata-rata harga beras kualitas premium lebih rendah daripada persentase peningkatan rata-rata harga beras kualitas medium pada dua tahun terakhir.","Rata-rata harga beras per kg untuk kualitas luar di penggilingan pada tahun 2021 meningkat 3% dari tahun sebelumnya.","Persentase kenaikan terendah dari peningkatan rata-rata harga beras per kg di penggilingan pada tahun 2021 terjadi pada beras kualitas premium.","Rata-rata harga beras per kg untuk kualitas luar di penggilingan pada tahun 2021 lebih rendah daripada rata-rata harga beras per kg untuk kualitas medium pada tahun 2020.","Selisih dari rata-rata harga beras per kg untuk kualitas medium dan premium pada tahun 2021 adalah Rp345,00."],
+answer:0,pembahasan:`Premium: (9.730-9.305)/9.305 ≈ 4,57%. Medium: (9.485-9.010)/9.010 ≈ 5,27%. Persentase kenaikan premium (4,57%) &lt; medium (5,27%). <strong>Opsi A BENAR. Jawaban A.</strong>`},
+
+{id:26,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Data rumah tahun 2012:<br>• Rumah A: Surabaya, Rp220 juta, 35 m² (kenaikan 120%)<br>• Rumah B: Semarang, Rp980 juta, 90 m² (kenaikan 27%)<br>• Rumah C: Palembang, Rp400 juta, 42 m² (kenaikan 76%)<br>• Rumah D: Banjarmasin, Rp550 juta, 65 m² (kenaikan 50%)</p>`,
+question:`Urutan rumah dengan besar kenaikan harga dari tahun 2012 sampai tahun 2022 dari yang paling besar adalah…`,
+options:["A, C, D, B","C, D, B, A","A, C, B, D","C, D, A, B","A, B, D, C"],
+answer:1,pembahasan:`Kenaikan nominal: A: 120% × 220 = Rp264 juta. B: 27% × 980 = Rp264,6 juta. C: 76% × 400 = Rp304 juta. D: 50% × 550 = Rp275 juta. Urutan terbesar: C (304) &gt; D (275) &gt; B (264,6) &gt; A (264) → <strong>Jawaban B.</strong>`},
+
+{id:27,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Barisan bilangan: 1, 1, 5, 6, 4, 10, 11, 9, 15, 16, p, q, ...
+
+Pernyataan berikut yang benar mengenai hubungan p dan q adalah ....`,
+options:["3p - 2q < 0","2p + q < 50","3p < 2q + 5","q + 10 < p","p < 2q – 5"],
+answer:4,pembahasan:`Pola kelompok 3 bilangan: (1,1,_), (5,6,4), (10,11,9), (15,16,p), ... → p = 14, q = 20. Cek: p &lt; 2q − 5 → 14 &lt; 40 − 5 = 35 ✓ <strong>Jawaban E.</strong>`},
+
+{id:28,cat:"Penalaran Umum",groupId:null,groupLabel:null,context:null,
+question:`Barisan bilangan: 4, 6, 10, 14, 22, 26, 34, a, b, ...
+
+Nilai yang tepat untuk a dan b adalah ....`,
+options:["36 dan 40","36 dan 42","38 dan 42","38 dan 46","40 dan 46"],
+answer:3,pembahasan:`Dua deret selang-seling: deret ganjil 4, 10, 22, 34, b → b = 46. Deret genap: 6, 14, 26, a → a = 38. Jadi a = 38 dan b = 46. <strong>Jawaban D.</strong>`},
+
+{id:29,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Pola kotak 1: [3, _, 7] dengan tengah 28. [5, _, 2].<br>Kotak 2: [1, _, 9] dengan tengah x. [3, _, 2].</p>`,
+question:`Nilai x yang mungkin adalah…`,
+options:["11","18","23","25","53"],
+answer:1,pembahasan:`Menggunakan pola yang sama pada kotak 1 untuk menentukan nilai tengah kotak 2. Dengan rumus serupa, x = <strong>18</strong>. Jawaban B.`},
+
+{id:30,cat:"Penalaran Umum",groupId:null,groupLabel:null,
+context:`<p>Pola lingkaran: Lingkaran 1: [16, 1, 9, 4]. Lingkaran 2: [64, 1, 27, 8]. Lingkaran 3: [?, 1, 81, 16].</p>`,
+question:`Angka yang tepat untuk mengisi tanda tanya (?) adalah…`,
+options:["16","80","100","128","256"],
+answer:4,pembahasan:`Pola tiap lingkaran: angka adalah n⁴, 1, n³, n². Lingkaran 3: 81=3⁴, 16=2⁴, 1=1⁴ → ? = 4⁴ = <strong>256</strong>. Jawaban E.`},
+
+// ════════════════════════════════════════
+// PEMAHAMAN BACAAN & MENULIS (Soal 31-50)
+// ════════════════════════════════════════
+{id:31,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:`<p>(1) Ditemukan lebih dari 200 tahun lalu, Antarktika sering digambarkan sebagai wilayah di mana jarang ditemukan jejak kehadiran manusia. (2) Namun, kini para ilmuwan memiliki catatan yang menemukan bahwa aktivitas manusia di sana telah meluas ke beberapa daerah dan mengancam keanekaragaman hayati. (3) Seperti yang dilaporkan pada jurnal Nature, tim mengumpulkan sejumlah data luar biasa yang mencakup sejarah benua tersebut. (4) Hasilnya menunjukkan bahwa sementara 99,6% wilayah tersebut masih liar, tapi yang bebas dari campur tangan manusia hanya 32%.</p><p>(5) Ketika memikirkan Antarktika, kita pasti teringat pada penguin. (6) Diketahui bahwa hanya 16% habitat mereka dan burung lainnya yang berhasil dilindungi. (7) Kedatangan turis dan stasiun penelitian tumpang tindih dengan area keanekaragaman hayati. (8) Beberapa hal yang mengancam benua tersebut tidak diragukan lagi: infrastruktur yang tumbuh di sana dan vegetasi yang terinjak-injak. (9) Belum lagi masalah polusi, kontaminasi mikroba, dan penyebaran spesies asli maupun asing. (10) Studi ini hanya mempertimbangkan tindakan langsung manusia di Antarktika. (11) Bukan dampak tidak langsung dari polusi, lubang di lapisan ozon, dan krisis iklim yang sedang berlangsung.</p><p style="font-size:12px;font-style:italic">Diadaptasi dari nationalgeographic.grid.id</p>`,
+question:`Pemberian judul yang tepat pada bacaan di atas yakni …`,
+options:["Dampak Aktivitas Manusia.","Kehidupan di Antarktika.","Dampak Aktivitas Manusia di Antarktika.","Aktivitas Manusia Merusak Alam.","Tindakan Manusia."],
+answer:2,pembahasan:`Judul adalah kepala karangan yang berhubungan dengan tema yang akan dibuat, hal tersebut sesuai dengan pembahasan bacaan mengenai dampak aktivitas manusia di Antarktika. <strong>Jawaban C.</strong>`},
+
+{id:32,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Kalimat yang menunjukkan hubungan penjelasan adalah….`,
+options:["Kalimat 11","Kalimat 7","Kalimat 1","Kalimat 4","Kalimat 5"],
+answer:3,pembahasan:`(4) Hasilnya menunjukkan bahwa sementara 99,6% wilayah tersebut masih liar, tapi yang bebas dari campur tangan manusia hanya 32%. Biasanya dalam kalimat konjungsi subordinatif hubungan penjelasan, kata hubung yang digunakan adalah: "bahwa". <strong>Jawaban D.</strong>`},
+
+{id:33,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Kalimat yang berupa fakta dalam teks tersebut terdapat pada kalimat ....`,
+options:["1 dan 3","5 dan 11","5 dan 9","2 dan 9","9 dan 11"],
+answer:0,pembahasan:`Pada kalimat ke-1 terdapat keterangan tempat dan waktu yang konkret dan pada kalimat ke-3 terdapat keterangan nama jurnal. Hal tersebut merupakan fakta yang bisa dibuktikan kebenarannya. <strong>Jawaban A.</strong>`},
+
+{id:34,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Kata berimbuhan yang tepat untuk memperbaiki kata bertanda kurung pada kalimat 5 dan 7 adalah ....`,
+options:["Diingat dan kedatangan","Teringat dan kedatangan","Diingat dan didatangkan","Teringat dan didatangkan","Mengingat dan kedatangan"],
+answer:1,pembahasan:`Kata berimbuhan "teringat" dan "kedatangan" memiliki makna dan maksud yang sesuai dengan paragraf tersebut. <strong>Jawaban B.</strong>`},
+
+{id:35,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Pertanyaan manakah yang jawabannya ditemukan pada teks tersebut?`,
+options:["Bagaimana cara penguin berenang?","Kenapa masyarakat datang ke Antarktika?","Berapa lama perjalanan menuju Antarktika?","Mengapa terdapat lubang di lapisan ozon?","Apa saja yang mengancam kehidupan di Antarktika?"],
+answer:4,pembahasan:`Jawaban dari pertanyaan opsi E ditemukan pada kalimat ke-8. Hal yang mengancam kehidupan di benua Antarktika adalah infrastruktur yang tumbuh dan vegetasi yang terinjak-injak. <strong>Jawaban E.</strong>`},
+
+{id:36,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Ide pokok pada bacaan di atas adalah …`,
+options:["Ketika memikirkan Antarktika, kita teringat pada penguin.","Polusi, lubang di lapisan ozon, dan krisis iklim sedang berlangsung.","Aktivitas manusia di Antarktika mengancam keanekaragaman hayati.","Pengaruh tindakan langsung manusia di Antarktika.","99,6% wilayah masih liar, tetapi yang bebas dari campur tangan manusia hanya 32%."],
+answer:2,pembahasan:`Ide pokok merupakan inti dari sebuah bacaan. Bacaan tersebut memiliki ide pokok mengenai aktivitas manusia di Antarktika yang mengancam keanekaragaman hayati. <strong>Jawaban C.</strong>`},
+
+{id:37,cat:"Pemahaman Bacaan & Menulis",groupId:"g_antarktika",groupLabel:"Teks: Antarktika",
+context:null,
+question:`Tujuan penulis sesuai isi teks adalah ....`,
+options:["Menginformasikan pada pembaca perihal penguin.","Menginformasikan dampak aktivitas manusia di Antarktika.","Mengajak pembaca untuk melestarikan lingkungan.","Memaparkan mengenai dampak krisis iklim.","Menjelaskan isi jurnal Nature."],
+answer:1,pembahasan:`Tujuan penulis teks dapat disimpulkan dari isi teks. Tujuan penulisan paragraf tersebut adalah memaparkan mengenai dampak aktivitas manusia di Antarktika. Hal tersebut terlihat pada paragraf pertama. <strong>Jawaban B.</strong>`},
+
+{id:38,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:`<p>Akhir-akhir ini, mata dunia teralih dari hutan Amazon karena fokus kepada pandemi virus korona. Laporan terbaru yang dipublikasikan dari National Institute for Space Research (INPE) Brasil, mengungkap angka mengejutkan dari peningkatan deforestasi di sana. Kebakaran hutan di Amazon menarik perhatian banyak orang pada 2019, tapi itu tidak cukup untuk melindunginya. Menurut data terbaru, 3.066 kilometer persegi Hutan Amazon telah dirusak pada enam bulan pertama 2020—meningkat 25% dari tahun lalu di periode yang sama. Pada Juni 2020, deforestasi mencapai rekor bulanan yakni melalap 1.033 kilometer persegi, 10,7% lebih tinggi di waktu yang sama tahun lalu dan 24,3% lebih tinggi dari Mei 2020. Laporan INPE yang tidak dipublikasikan memaparkan bahwa jika penggundulan hutan terus meningkat dengan kecepatan yang sama seperti ini, maka kita berada di 'jalur kerusakan' yang belum pernah terjadi sejak 2005. Dengan musim panas yang baru mulai di Amazon, risiko kebakaran hutan mencapai puncaknya. Tahun lalu, catatan kebakaran hutan di musim panas sangat mengkhawatirkan. Menimbulkan kecaman kepada Presiden Brasil, Jair Bolsonaro, yang dianggap mendorong aksi penebangan liar, penambangan dan alih fungsi lahan di Amazon dan gagal menerapkan konservasi.</p><p style="font-size:12px;font-style:italic">Sumber: nationalgeographic.grid.id</p>`,
+question:`Penulisan "National Institute for Space Research" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","National institute for space research","National Institute for Space Research (cetak miring)","national institute for space research","National Institute For Space Research"],
+answer:0,pembahasan:`Penulisan di teks sudah sesuai kaidah yaitu penulisan nama diri tidak dimiringkan walaupun dalam bahasa asing dan diawali dengan huruf kapital kecuali kata tugas. <strong>Jawaban A (Tidak Perlu Diperbaiki).</strong>`},
+
+{id:39,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Penulisan kata "deforestasi" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","deforestation","deforestasi (cetak miring)","deforestation (cetak miring)",'&quot;deforestasi&quot;'],
+answer:0,pembahasan:`Penulisan di teks sudah sesuai kaidah. Kata "deforestasi" merupakan kata serapan yang telah dibakukan dalam bahasa Indonesia dan tidak perlu dicetak miring. <strong>Jawaban A (Tidak Perlu Diperbaiki).</strong>`},
+
+{id:40,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Penulisan "Hutan Amazon" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","hutan Amazon","hutan Amazon (cetak miring)","hutan amazon","&quot;hutan Amazon&quot;"],
+answer:1,pembahasan:`Penulisan yang tepat adalah "hutan Amazon". Kata hutan tidak perlu ditulis dengan huruf kapital karena bukan bagian dari nama diri, sedangkan nama hutannya (Amazon) tetap ditulis dengan huruf kapital dan tidak perlu dimiringkan. <strong>Jawaban B.</strong>`},
+
+{id:41,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Penulisan "jalur kerusakan" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","jalur kerusakan (tanpa tanda apapun)","'jalur kerusakan'","jalur 'kerusakan'","&quot;jalur Kerusakan&quot;"],
+answer:2,pembahasan:`Penulisan yang tepat adalah dengan diapit tanda petik tunggal karena frasa 'jalur kerusakan' merupakan ungkapan. <strong>Jawaban C.</strong>`},
+
+{id:42,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Penulisan "Jair Bolsonaro" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","jair bolsonaro","jair bolsonaro (cetak miring)","Jair bolsonaro","&quot;jair bolsonaro&quot;"],
+answer:0,pembahasan:`Penulisan di teks sudah sesuai dengan kaidah karena Jair Bolsonaro merupakan nama presiden Brasil yang ditulis dengan huruf kapital di setiap kata. <strong>Jawaban A (Tidak Perlu Diperbaiki).</strong>`},
+
+{id:43,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Penulisan kata "konservasi" pada teks perlu diperbaiki menjadi ....`,
+options:["TIDAK PERLU DIPERBAIKI","konservasi (cetak miring)","Konservasi","'konservasi'","&quot;konservasi&quot;"],
+answer:0,pembahasan:`Penulisan di teks sudah sesuai dengan kaidah. Kata "konservasi" merupakan kata baku dalam bahasa Indonesia. <strong>Jawaban A (Tidak Perlu Diperbaiki).</strong>`},
+
+{id:44,cat:"Pemahaman Bacaan & Menulis",groupId:"g_amazon",groupLabel:"Teks: Hutan Amazon",
+context:null,
+question:`Kata yang tidak baku terdapat pada kata ….`,
+options:["Tapi","Melalap","Penggundulan","Penambangan","Kecaman"],
+answer:0,pembahasan:`Kata "tapi" merupakan bentuk tidak baku dari "tetapi". <strong>Jawaban A.</strong>`},
+
+{id:45,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:`<p>(1) Parisnya Jawa, demikian julukan lama Bandung. (2) Kota ini berkembang pesat pada awal abad ke-20. (3) Wajahnya berubah dari kota perkebunan teh menjadi kota modern nan modis. (4) Nama Bragaweg pun menggantikan Pedatiweg. (5) Seruas jalan ini memiliki pesona yang membangkitkan minat pejalan untuk singgah dan menghirup nuansanya—dari silam sampai kini.</p><p>(6) Dari kota yang dibangun dari hasil kebun-kebun teh, kedua fotografer tadi beranjak menuju perkebunan teh di Pangalengan. (7) Mereka menjangkau jarak sekitar 40 kilometer ke arah selatan Bandung. (8) Malam itu Didi dan Arbain berkendara menuntaskan jalanan berliku, menanjaki bukit-bukit bersama kabut yang menghadang.</p><p>(9) Pangalengan berada di ketinggian sekitar 1.500 meter di atas permukaan laut, dan sejak akhir abad ke-19 dikenal sebagai kawasan perkebunan teh. (10) Salah satu juragan teh nan beken dan filantropi pernah terinspirasi oleh jernihnya langit Bandung Selatan Karel Albert Rudolf Bosscha. (11) Atas gagasannya, sebuah observatorium megah menjadi tengara di kawasan Lembang. (12) Atas jasanya dalam bidang astronomi, sebuah asteriod menggunakan namanya— 11431 Karelbosscha.</p><p style="font-size:12px;font-style:italic">Sumber: nationalgeographic.grid.id</p>`,
+question:`Kalimat yang mengandung kesalahan tanda baca adalah kalimat nomor …`,
+options:["Kalimat (4)","Kalimat (5)","Kalimat (6)","Kalimat (8)","Kalimat (10)"],
+answer:4,pembahasan:`Kalimat (10): Seharusnya setelah kata "Selatan" terdapat tanda koma. Kalimat yang benar: (10) Salah satu juragan teh nan beken dan filantropi pernah terinspirasi oleh jernihnya langit Bandung Selatan, Karel Albert Rudolf Bosscha. <strong>Jawaban E.</strong>`},
+
+{id:46,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:null,
+question:`Penulisan kata yang salah ditemukan pada kalimat …`,
+options:["Kalimat (4)","Kalimat (6)","Kalimat (7)","Kalimat (9)","Kalimat (12)"],
+answer:4,pembahasan:`Dalam kalimat (12) terdapat kesalahan penulisan kata yaitu kata "asteriod" yang seharusnya ditulis "asteroid" yang maknanya benda langit kecil, anggota tata surya. <strong>Jawaban E.</strong>`},
+
+{id:47,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:null,
+question:`Pernyataan yang tidak sesuai dengan bacaan di atas adalah …`,
+options:["Parisnya Jawa, julukan lama Bandung.","Nama Bragaweg pun menggantikan Pedatiweg.","Salah satu juragan teh nan beken dan filantropi pernah terinspirasi oleh jernihnya langit Bandung Selatan, Karel Albert Rudolf Bosscha.","Malam itu Didi dan Arbain berkendara menuntaskan jalanan berliku, menuruni bukit-bukit bersama kabut yang menghadang.","Dari kota yang dibangun dari hasil kebun-kebun teh, kedua fotografer tadi beranjak menuju perkebunan teh di Pangalengan."],
+answer:3,pembahasan:`Kalimat tersebut tidak sesuai dengan bacaan dan berlawanan dengan kalimat (8). Pada teks disebutkan "menanjaki bukit-bukit", bukan "menuruni bukit-bukit". <strong>Jawaban D.</strong>`},
+
+{id:48,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:null,
+question:`Makna kata nan pada teks di atas adalah ….`,
+options:["Begitu","Yang","Dengan","Dan","Juga"],
+answer:1,pembahasan:`Menurut KBBI V, kata "nan" memiliki makna "yang". <strong>Jawaban B.</strong>`},
+
+{id:49,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:null,
+question:`Kalimat yang tidak efektif terdapat pada kalimat ….`,
+options:["2","4","7","8","10"],
+answer:3,pembahasan:`Kalimat (8) tidak efektif karena memiliki predikat yang ganda: "berkendara menuntaskan jalanan berliku, menanjaki bukit-bukit bersama kabut yang menghadang". <strong>Jawaban D.</strong>`},
+
+{id:50,cat:"Pemahaman Bacaan & Menulis",groupId:"g_bandung",groupLabel:"Teks: Bandung",
+context:null,
+question:`Kata yang tidak baku terdapat pada kata ….`,
+options:["Singgah","Menghirup","Menghadang","Filantropi","Tengara"],
+answer:2,pembahasan:`Kata baku dari "menghadang" adalah "mengadang". <strong>Jawaban C.</strong>`},
+// ════════════════════════════════════════
+// LITERASI BAHASA INGGRIS (Soal 51-70)
+// ════════════════════════════════════════
+{id:51,cat:"Literasi B. Inggris",groupId:"g_cats",groupLabel:"Text: Cats",
+context:`<p>Cats also called the domestic cat or house cat (with its scientific name: Felis silvestris catus or Felis catus) is a type of carnivorous mammal of the family Felidae. The word "cat" generally refers to a "cat" that has been tamed, but can also refer to the "big cats" such as lions and tigers.</p><p>Cats are considered as "perfect carnivore" with teeth and particular digestive tract. The first premolar and molar teeth form a pair of fangs on each side of the mouth that works effectively as a pair of scissors to tear the meat. Although these features also exist in the Canidae or dog, but these traits are better developed in cats.</p><p>Unlike other carnivores, cats eat almost non vegetable substance. Bears and dogs sometimes eat berries, roots, or honey as a supplement, while cats only eat meat, usually freshly killed prey. In captivity, cats cannot adapt to a vegetarian diet because they cannot synthesize all the amino acids from plant material; it is in contrast with domesticated dogs, which commonly are fed a mixture of meat and vegetables and sometimes they can adapt to a completely vegetarian meal.</p><p>Cats have mingled with human life since at least 6000 BC, from the skeleton of the cat found on the island of Cyprus. The ancient Egyptians of 3500 BC have used cats to keep away the rats or other rodents from the barn where the crops were saved. Currently, the cat is one of the most popular pets in the world. Cats that his lines are recorded officially as a cat breeds or pure breed are Persian, Siamese, Manx, and the Sphinx. The number of purebred cat is only 1% of all cats in the world.</p><p style="font-size:12px;font-style:italic">Source: saintif.com</p>`,
+question:`"….., but these traits are better developed in cats." (Paragraph 2)
+
+The word "traits" could best be replaced by …..`,
+options:["Tries","Trails","Trials","Characteristics","Characterized"],
+answer:3,pembahasan:`Characteristics (karakter/ciri-ciri/sifat) adalah persamaan kata dari traits (karakter/ciri-ciri/sifat). <strong>Answer: D.</strong>`},
+
+{id:52,cat:"Literasi B. Inggris",groupId:"g_cats",groupLabel:"Text: Cats",
+context:null,
+question:`These following statements are true, EXCEPT …..`,
+options:["Cats are considered as perfect carnivore with teeth and particular digestive tract.","Cats eat almost non-vegetable substance.","Cats cannot adapt to a vegetarian diet because they cannot synthesize all the amino acids they need from plant material.","Cats have mingled with human life since at least 600 BC.","The cat is one of the most popular pets in the world."],
+answer:3,pembahasan:`Paragraph 4 states cats mingled with human life since at least <strong>6000 BC</strong>, not 600 BC. Option D is incorrect. <strong>Answer: D.</strong>`},
+
+{id:53,cat:"Literasi B. Inggris",groupId:"g_burj",groupLabel:"Text: Burj Khalifa",
+context:`<p>The Burj Khalifa (or how it was called until 2010, Burj Dubai) opened on January 14th, 2010. Even before the building construction was finished, starting from 2007, it had become the highest skyscraper in the world. Its exact height is 2,722 feet, or 829.8 meters. The number of floors is 163 floors, which is 16&apos;2&quot; (about 5 meters) for each floor.</p><p>Burj Khalifa looks like a stalagmite, which means it resembles vertical minerals growing from cave floors. Stalagmites usually have a shape of a cone, and so does Burj Khalifa.</p><p>The most impressive aspect about Burj Khalifa is that it had been planned to be a "city within the city". The glass of the tower's surface always shines because it is washed every single day. There are three entrances to the tower. At the foot of the skyscraper, there is a big artificial lake that measures up to 12 hectares.</p><p>Inside, the building is as magnificent as it is from the outside. The interior of the Armani hotel, located on the floors from first to 39th, was designed by Giorgio Armani himself. 57 elevators work 24 hours each day to transport visitors between floors.</p><p style="font-size:12px;font-style:italic">Source: academichelp.net</p>`,
+question:`"Inside, the building is as magnificent as it is from the outside." (paragraph 4)
+
+Which one of the following words is the ANTONYM of magnificent?`,
+options:["Pretty","Beautiful","Great","Good","Execrable"],
+answer:4,pembahasan:`Execrable (very bad/terrible) is the antonym of magnificent (impressive/splendid). Options A, B, C, and D are synonyms, not antonyms. <strong>Answer: E.</strong>`},
+
+{id:54,cat:"Literasi B. Inggris",groupId:"g_burj",groupLabel:"Text: Burj Khalifa",
+context:null,
+question:`These following statements are true, EXCEPT ….`,
+options:["Burj Khalifa has 163 floors, which is 16&apos;2&quot; (about 5 meters) for each floor.","There are four entrances to the tower of Burj Khalifa.","There is a big artificial lake that measures up to 12 hectares at Burj Khalifa.","The interior of the Armani hotel was designed by Giorgio Armani himself.","57 elevators work 24 hours each day to transport visitors between floors."],
+answer:1,pembahasan:`Paragraph 3 states there are <strong>three</strong> entrances to the tower, not four. Option B is false. <strong>Answer: B.</strong>`},
+
+{id:55,cat:"Literasi B. Inggris",groupId:"g_earth",groupLabel:"Text: Age of the Earth",
+context:`<p>We believe the Earth is about 4.6 billion years old. At present we are forced to look to other bodies in the solar system for hints as to what the early history of the Earth was like. Studies of our moon, Mercury, Mars, and the large satellites of Jupiter and Saturn have provided ample evidence that all these large celestial bodies had formed. The lunar record indicates that the rate of impacts decreased to its present low level about 4 billion years ago. On Earth, subsequent erosion and crustal motions have obliterated the craters that must have formed during this epoch.</p><p>Scientists estimate the Earth's age by measuring the ratios of various radioactive elements in rocks. The oldest Earth's rocks tested thus far are about 3 1/3 billion years old. Tests on rocks from the moon and on meteorites show that these are about 4.6 billion years old. Scientists believe that this is the true age of the solar system and probably the true age of the Earth.</p><p style="font-size:12px;font-style:italic">Source: bigbanktheories.com</p>`,
+question:`It can be inferred from the passage that the age of the earth is estimated by?`,
+options:["By examining fossils and prehistoric","By showing the erosion","By researching about volcanic activity","By studying about the great sun and moon","By measuring the ratios of various radioactive elements in rocks"],
+answer:4,pembahasan:`Paragraph 2 states: "Scientists estimate the Earth's age by measuring the ratios of various radioactive elements in rocks." <strong>Answer: E.</strong>`},
+
+{id:56,cat:"Literasi B. Inggris",groupId:"g_earth",groupLabel:"Text: Age of the Earth",
+context:null,
+question:`"On Earth, subsequent erosion and crustal motions have obliterated the craters…" (paragraph 1)
+
+The underlined word is closest in meaning to?`,
+options:["Construct","Initiate","Build","Eliminated","Create"],
+answer:3,pembahasan:`Obliterated means destroyed/wiped out. The closest synonym is <strong>Eliminated</strong> (melenyapkan). Construct, Initiate, Build, and Create all have opposite meanings. <strong>Answer: D.</strong>`},
+
+{id:57,cat:"Literasi B. Inggris",groupId:"g_legend",groupLabel:"Text: Princess Teja Nirmala",
+context:`<p>Long, long ago, when the gods and goddesses used to mingle in the affairs of mortals, there was a small kingdom on the slope of Mount Wayang in West Java. The King, named Sang Prabu, was a wise man. He had an only daughter, called Princess Teja Nirmala, who was famous for her beauty but she was not married. One day Sang Prabu made up his mind to settle the matter by a show of strength.</p><p>After that, Prince of Blambangan, named Raden Begawan had won the competition. Unfortunately, the wicked fairy, Princess Segara fell in love with Raden Begawan and used magic power to render him unconscious and he forgot his wedding. When Sang Prabu was searching, Raden Begawan saw him and soon realized that he had been enchanted by the wicked fairy. The fairy could not accept this, so she killed Raden Begawan. When Princess Teja Nirmala heard this, she was very sad. So a nice fairy took her to the Kahyangan.</p><p style="font-size:12px;font-style:italic">Adapted from: englishadmin.com</p>`,
+question:`What is the closest meaning to the word "mingle" in paragraph 1?`,
+options:["Celebrate","Accelerate","Associate","Future","Compliment"],
+answer:2,pembahasan:`Mingle means to mix/associate with others. The closest meaning is <strong>Associate</strong> (bergaul/bercampur baur). A=celebrate (merayakan), B=accelerate (mempercepat), D=future (masa depan), E=compliment (pujian). <strong>Answer: C.</strong>`},
+
+{id:58,cat:"Literasi B. Inggris",groupId:"g_paris",groupLabel:"Text: Paris",
+context:`<p>Paris is the capital city of France. It is one of the most beautiful cities in the world. It is also one of the world's most crowded cities. Lovely gardens and parks are found throughout Paris. At night, many palaces and statues are lit up. For this reason, Paris is often called the city of light. Every year, millions of people visit Paris. The most popular place to visit is the Eiffel Tower. This huge structure has become the symbol of Paris. D'Louvre, one of the world's largest art museums draws many visitors. The Cathedral Notre Dame, a famous church, is another favourite place to visit.</p><p style="font-size:12px;font-style:italic">Adapted from: englishadmin.com</p>`,
+question:`"At night, many palaces and statues are lit up."
+
+The underlined word is closest in meaning to?`,
+options:["Light up","Beautiful","Strong","Fragile","Famous"],
+answer:0,pembahasan:`"Lit up" in this context means illuminated/shining. The closest meaning is <strong>Light up</strong> (menyala/menerangi). B=beautiful, C=strong, D=fragile, E=famous — none match. <strong>Answer: A.</strong>`},
+
+{id:59,cat:"Literasi B. Inggris",groupId:"g_tv",groupLabel:"Text: Television Programs",
+context:`<p>Television gives several programs for its viewers. One kind of television program is News Report. News Report is a program that is reported all of the news in the world. This is the factual program, all of the news is a fact. A fact is something that is true. Some of the news program in television, namely Liputan 6 Siang, Dunia Dalam Berita, Fokus Siang, and etc. Another program is an infotainment program. Same as news program this program is the factual program and giving an information to viewers. Difference with news program, the infotainment programme informs the celebrity's news, for example Kisah Seputar Selebriti, Silent, Sinden Gossip, Hot Spot. etc.</p><p style="font-size:12px;font-style:italic">Adapted from: www.text.co.id</p>`,
+question:`"Same as news program this program is the factual program and giving an information to viewers"
+
+What is the closest meaning of "viewers"?`,
+options:["Traveler","Spectator","Citizen","Presenter","Director"],
+answer:1,pembahasan:`Viewers means people who watch (penonton). The closest synonym is <strong>Spectator</strong> (penonton). A=Traveler (petualang), C=Citizen (masyarakat), D=Presenter (pembawa acara), E=Director (direktur). <strong>Answer: B.</strong>`},
+
+{id:60,cat:"Literasi B. Inggris",groupId:"g_career",groupLabel:"Text: Career",
+context:`<p>A Career is an individual's journey through learning, work and other aspects of life. Everybody who have career exactly want to advance their career.</p><p>If you want to advance your career, you will have to make some careful decisions about which jobs you take. Consider a job offered for the value it has to your career. It may mean sacrifices at first. You may have to move to a different region or country. You might even have to take a lower salary for a job that offers you the experience that you need. But you should never accept a job if it is not related to your career goals.</p><p>Accepting a job that is not within your career path will not give you the skill or experience you need or want. You will find yourself frustrated in such a position and consequently will not perform your best. This will have an effect on the people around you, who will not feel as if you are being part of the team. The best advice is to think carefully before accepting any position.</p><p style="font-size:12px;font-style:italic">Adapted from: www.sekolahbahasainggris.co.id</p>`,
+question:`"You will find yourself frustrated in such a position and consequently will not perform your best."
+
+The underlined word has the closest meaning to?`,
+options:["Cool","Stay calm","Depressed","Qualified","Strong"],
+answer:2,pembahasan:`Frustrated (frustrasi/kecewa) is closest in meaning to <strong>Depressed</strong> (tertekan/depresi). A=Cool (keren), B=Stay Calm (tenang), D=Qualified (berkualitas), E=Strong (kuat). <strong>Answer: C.</strong>`},
+
+{id:61,cat:"Literasi B. Inggris",groupId:"g_amelia",groupLabel:"Text: Amelia Earhart",
+context:`<p>One of the modern world's intriguing sources of mystery has been aeroplanes vanishing in mid flight. One of the more famous of these was the disappearance in 1937 of a pioneer woman aviator, Amelia Earhart. On the second last stage of an attempted round the world flight, she had radioed her position as she and her navigator searched desperately for their destination, a tiny island in the Pacific.</p><p>The plane never arrived at Howland Island. Did it crash and sink after running out of fuel? It had been a long haul from New Guinea, a twenty hour flight covering some four thousand kilometres. One fanciful theory had her being captured by the Japanese in the Marshall Islands and later executed as an American spy; another had her living out her days under an assumed name as a housewife in New Jersey.</p><p>Seventy years after Earhart's disappearance, myth busters continue to search for her. She was the best-known American woman pilot in the world. People were tracking her flight with great interest when, suddenly, she vanished into thin air. Aircraft had developed rapidly in sophistication after World War One, with the 1920s and 1930s marked by an aeronautical record-setting frenzy. But only Earhart, the reserved tomboy from Kansas who disappeared three weeks shy of her 40th birthday, still grips the public imagination. Her disappearance has been the subject of at least fifty books, countless magazine and newspaper articles, and TV documentaries.</p><p>There were reports of distress calls from the Phoenix Islands made on Earhart's radio frequency for days after she vanished. Some say the plane could have broadcast only if it were on land, not in the water. Others dismiss the radio calls as bogus and insist Earhart and her navigator ditched in the water. An Earhart researcher, Elgen Long, claims that Earhart's airplane ran out of gas within fifty-two miles of the island. Those who subscribe to this explanation claim that the plane plunged into the sea somewhere off Howland Island.</p><p style="font-size:12px;font-style:italic">Source: education.vic.gov.au</p>`,
+question:`All the following are theories about Amelia's fate EXCEPT:`,
+options:["She escaped incognito and lived under an assumed name","She crashed somewhere on Howland Island","She and the navigator were stranded on an island","She was captured by the Japanese and executed as a spy.","She ran out of gas"],
+answer:1,pembahasan:`Paragraph 2 states the plane <strong>never arrived</strong> at Howland Island — so she could not have crashed there. Options A, C, D, and E are all mentioned in the text as theories. <strong>Answer: B.</strong>`},
+
+{id:62,cat:"Literasi B. Inggris",groupId:"g_amelia",groupLabel:"Text: Amelia Earhart",
+context:null,
+question:`"Aircraft had developed rapidly in sophistication after World War One."
+
+The underlined word above is best replaced by?`,
+options:["Well","Apace","Moderate","Softly","Faintly"],
+answer:1,pembahasan:`Rapidly means quickly/at speed. The best replacement is <strong>Apace</strong> (dengan cepat). A=Well (baik), C=Moderate (sedang), D=Softly (lembut), E=Faintly (samar-samar). <strong>Answer: B.</strong>`},
+
+{id:63,cat:"Literasi B. Inggris",groupId:"g_aboriginal",groupLabel:"Text: Aboriginal Rights in Canada",
+context:`<p>The struggle to obtain legal recognition of aboriginal rights is a difficult one, and even if a right is written into the law there is no guarantee that the future will not bring changes to the law that undermines the right. For this reason, the federal government of Canada in 1982 extended constitutional protection to those aboriginal rights already recognized under the law. This protection was extended to the Indian, Inuit, and Metis peoples. But this decision has placed on provincial courts the enormous burden of interpreting and translating the necessarily general constitutional language into specific rulings.</p><p>Aboriginal rights in Canada are defined by the constitution as aboriginal peoples' rights to ownership of land and its resources, the inherent right of aboriginal societies to self-government, and the right to legal recognition of indigenous customs. But difficulties arise in applying these broadly conceived rights. Provincial courts require aboriginal peoples to provide legal documentation that any customs they seek to protect were practiced sufficiently long ago — prior to the establishment of British sovereignty over the specific territory. However, this requirement makes it difficult for aboriginal societies, which often relied on oral tradition rather than written records, to support their claims.</p><p>Furthermore, even if aboriginal peoples are successful in convincing the courts that specific rights should be recognized, it is frequently difficult to determine exactly what these rights amount to. In a 1984 case in Ontario, an aboriginal group claimed that its property rights should be interpreted as full ownership in the contemporary sense, which allows for the sale of the land or its resources. But the provincial court instead ruled that the law had previously recognized only the aboriginal right to use the land and therefore granted property rights so minimal as to allow only the bare survival of the community.</p><p style="font-size:12px;font-style:italic">Source: lsac.org</p>`,
+question:`The following statements are true in the passage, EXCEPT?`,
+options:["The Canadian government has recognized the rights of the aboriginal people and it is written in the law.","Canada not only protects the rights of aborigines but also other tribes.","The aborigines do not have a record of the customs they protect","Aborigines have rights to land ownership and are allowed to sell the land","The aborigines have not yet taken their case to Canada's Supreme Court"],
+answer:3,pembahasan:`Paragraph 3 states the provincial court ruled property rights were so minimal as to allow only bare survival — the court did <strong>not</strong> allow them to sell the land. Option D is false. <strong>Answer: D.</strong>`},
+
+{id:64,cat:"Literasi B. Inggris",groupId:"g_aboriginal",groupLabel:"Text: Aboriginal Rights in Canada",
+context:null,
+question:`"aboriginal group claimed that its property rights should be interpreted as full ownership ..."
+
+The word 'interpreted' is closest in meaning to?`,
+options:["Construed","Evident","Explicit","Manifest","Spoken"],
+answer:0,pembahasan:`Interpreted means translated/explained in meaning. The closest synonym is <strong>Construed</strong> (ditafsirkan). B=Evident (terbukti), C=Explicit (tegas), D=Manifest (nyata), E=Spoken (diucapkan). <strong>Answer: A.</strong>`},
+
+{id:65,cat:"Literasi B. Inggris",groupId:"g_aboriginal",groupLabel:"Text: Aboriginal Rights in Canada",
+context:null,
+question:`".... that any customs they seek to protect were practiced sufficiently long ago."
+
+In the second paragraph, what does the word "they" refer to?`,
+options:["Canadian federal government","Provincial courts","Canadian society","Indian peoples","Aboriginal peoples"],
+answer:4,pembahasan:`The word "they" refers to <strong>Aboriginal peoples</strong>, as the sentence discusses the customs that aboriginal peoples want to protect. <strong>Answer: E.</strong>`},
+
+{id:66,cat:"Literasi B. Inggris",groupId:"g_britain",groupLabel:"Text: Dirty Britain",
+context:`<p>Before the grass has thickened on the roadside verges and leaves have started growing on the trees is a perfect time to look around and see just how dirty Britain has become. The pavements are stained with chewing gum that has been spat out and the gutters are full of discarded fast food cartons. Nowadays, Britain seems to look at least as bad. What has gone wrong?</p><p>The problem is that the rubbish created by our increasingly mobile lives lasts a lot longer than before. If it is not cleared up and properly thrown away, it stays in the undergrowth for years; a semi-permanent reminder of what a tatty little country we have now.</p><p>Firstly, it is estimated that 10 billion plastic bags have been given to shoppers. These will take anything from 100 to 1,000 years to rot. A few years ago, the Irish government introduced a tax on non-recyclable carrier bags and in three months reduced their use by 90%.</p><p>What is clearly necessary right now is some sort of combined initiative, both individual and collective, before it is too late. Yet we know that people respond to their environment. If things around them are clean and tidy, people behave cleanly and tidily. If they are surrounded by squalor, they behave squalidly. Now, much of Britain looks pretty squalid.</p><p style="font-size:12px;font-style:italic">Source: mrnussbaum.com</p>`,
+question:`What is the closest meaning of the word "tatty" in the second paragraph?`,
+options:["Seedy","Wrong","Ugly","Stingy","Greasy"],
+answer:0,pembahasan:`Tatty means shabby/rundown (kumuh). The closest synonym is <strong>Seedy</strong> (lusuh/kumuh). B=Wrong (salah), C=Ugly (jelek), D=Stingy (pelit), E=Greasy (berminyak). <strong>Answer: A.</strong>`},
+
+{id:67,cat:"Literasi B. Inggris",groupId:"g_britain",groupLabel:"Text: Dirty Britain",
+context:null,
+question:`What can we infer from the last paragraph?`,
+options:["People are squalid.","People behave according to what they see around them.","People are clean and tidy.","People are like a vast municipal rubbish tip.","People today are behaving dirty"],
+answer:1,pembahasan:`The last paragraph states: "people respond to their environment. If things around them are clean and tidy, people behave cleanly and tidily. If they are surrounded by squalor, they behave squalidly." This supports option B. <strong>Answer: B.</strong>`},
+
+{id:68,cat:"Literasi B. Inggris",groupId:"g_cambodia",groupLabel:"Text: Siem Reap & Cambodia",
+context:`<p>Siem Reap is a small town near the world famous temple of Angkor Wat. The town is charming and worth exploring, with some fine examples of Khmer and French colonial architecture. Nowadays, visitors are flocking in, using it as a base for visits to the nearby temples.</p><p>From the 9th to the 14th centuries, the Cambodian Empire of Angkor covered most of present-day Cambodia, Laos, Vietnam, and Thailand. The heart of this empire during the 12th century was the ancient capital of Angkor Thom, near present day Siem Reap, the site of the world's largest temple complexes, which were rediscovered in 1861. This spectacular city was built over 30 years under the reign of King Suryavarman II (1113-1150). The area covers about 400 square kilometres.</p><p>In Angkor Wat you will find more than 100 stone monuments and temple buildings. To see the whole thing can take several days. The most important temples to visit are Angkor Wat, especially at sunrise or sunset; Angkor Thom, the remains of the capital; Ta Prohm, a palace overgrown by jungle; and Bayon.</p><p>Visas are required to enter Cambodia. You can obtain one on arrival at Siem Reap International Airport for $20, and 1 passport photo is required per person. You will also need another passport photo for the Angkor Temple Entrance Pass. Please ensure you take comfortable walking shoes, light clothing and plenty of water as it is very hot there. The most commonly accepted currency in Cambodia is the US dollar.</p><p style="font-size:12px;font-style:italic">Source: pearsonlongman.com</p>`,
+question:`What can be inferred about "Cambodia" according to the passage?`,
+options:["Siem Reap is the capital city of Cambodia","It has Khmer and Vietnamese architecture","It's home of the world's largest temple complexes.","It is near to Angkor Thom","It is overgrown by jungle and Bayon."],
+answer:2,pembahasan:`Paragraph 2 mentions "Angkor Thom, near present day Siem Reap, the site of the world's largest temple complexes" — which is in Cambodia. This matches option C. <strong>Answer: C.</strong>`},
+
+{id:69,cat:"Literasi B. Inggris",groupId:"g_cambodia",groupLabel:"Text: Siem Reap & Cambodia",
+context:null,
+question:`What is the closest meaning of the word "ensure" in the last paragraph?`,
+options:["Undermine","Bring","Guarantee","Few","Satisfied"],
+answer:2,pembahasan:`Ensure means to make certain (memastikan). The closest meaning is <strong>Guarantee</strong> (menjamin). A=Undermine (merusak), B=Bring (membawa), D=Few (beberapa), E=Satisfied (puas). <strong>Answer: C.</strong>`},
+
+{id:70,cat:"Literasi B. Inggris",groupId:"g_cambodia",groupLabel:"Text: Siem Reap & Cambodia",
+context:null,
+question:`The following statements are true in the passage, EXCEPT?`,
+options:["Most people visit Siem Reap because it is close to temples.","Angkor Wat was the capital of the Cambodian empire","Dawn and dusk are particularly good times to visit Angkor Wat.","You will need a couple of passport photos.","The US dollar is widely accepted in Cambodia."],
+answer:1,pembahasan:`The text states the capital was <strong>Angkor Thom</strong>, not Angkor Wat. Option B is false. Paragraph 3 says Angkor Wat is best visited at sunrise or sunset, confirming option C is true. <strong>Answer: B.</strong>`},
+
+// ════════════════════════════════════════
+// PENGETAHUAN KUANTITATIF (Soal 71-85)
+// ════════════════════════════════════════
+{id:71,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Jika x + y ≤ 2 dan 0 ≤ y ≤ 1, maka nilai maksimum dari 3x + 2y adalah…`,
+options:["0","2","3","6","7"],
+answer:3,pembahasan:`x + y ≤ 2 → x ≤ 2 − y → 3x ≤ 6 − 3y → 3x + 2y ≤ 6 − y. Agar maksimum, y minimum = 0, maka 3x + 2y ≤ 6. Nilai maksimum = <strong>6</strong>. Jawaban D.`},
+
+{id:72,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Jika x, y > 0, berapakah y?
+(1) x − y = 2
+(2) xy = 15
+
+[Petunjuk Data Sufficiency: A=Pernyataan (1) saja cukup; B=Pernyataan (2) saja cukup; C=Kedua pernyataan bersama cukup; D=Keduanya masing-masing cukup; E=Keduanya tidak cukup]`,
+options:["Pernyataan (1) SAJA cukup","Pernyataan (2) SAJA cukup","Kedua pernyataan bersama cukup, satu saja tidak cukup","Pernyataan (1) SAJA cukup DAN pernyataan (2) SAJA cukup","Keduanya tidak cukup"],
+answer:2,pembahasan:`(1): y = x − 2, masih ada 2 variabel → tidak cukup. (2): y = 15/x, masih ada 2 variabel → tidak cukup. Gabungkan: 15/y − y = 2 → y² + 2y − 15 = 0 → (y−3)(y+5) = 0. Karena y > 0, maka y = 3. <strong>Jawaban C.</strong>`},
+
+{id:73,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Bilangan 3 digit yang dapat dibentuk jika nilai mutlak selisih antara digit pertama dan ketiga adalah 4 ada sebanyak ...`,
+options:["130","110","70","50","40"],
+answer:1,pembahasan:`Pasangan (A,C) dengan |A−C|=4: (4,0),(5,1),(1,5),(6,2),(2,6),(7,3),(3,7),(8,4),(4,8),(9,5),(5,9) → 11 pasangan. Digit tengah B: 0–9 → 10 pilihan. Total = 11 × 10 = <strong>110</strong>. Jawaban B.`},
+
+{id:74,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Akibat terlambat mengikuti upacara bendera, 6 orang siswa (3 laki-laki dan 3 perempuan) diminta berdiri di depan tiang bendera. Banyaknya susunan baris mereka jika ketiga perempuan berdiri berdampingan adalah … cara`,
+options:["24","48","72","96","144"],
+answer:4,pembahasan:`Ketiga perempuan dianggap 1 unit → ada 4 unit yang diatur: 4! = 24 cara. Susunan di antara 3 perempuan: 3! = 6 cara. Total = 24 × 6 = <strong>144 cara</strong>. Jawaban E.`},
+
+{id:75,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Jika a dan b merupakan bilangan bulat positif, apakah a + b kelipatan 3?
+(1) a + b kelipatan 6.
+(2) b kelipatan 3.
+
+[Petunjuk Data Sufficiency: A=Pernyataan (1) saja cukup; B=(2) saja cukup; C=Bersama cukup; D=Keduanya masing-masing cukup; E=Keduanya tidak cukup]`,
+options:["Pernyataan (1) SAJA cukup","Pernyataan (2) SAJA cukup","Kedua pernyataan bersama cukup, satu saja tidak cukup","Pernyataan (1) SAJA cukup DAN pernyataan (2) SAJA cukup","Keduanya tidak cukup"],
+answer:0,pembahasan:`(1): a+b = 6k → 3|6k → 3|(a+b). Cukup. (2): b kelipatan 3, tapi a bisa saja bukan kelipatan 3, sehingga a+b belum tentu kelipatan 3. Tidak cukup. <strong>Jawaban A.</strong>`},
+
+{id:76,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Diketahui segiempat JKLM dengan titik N berada di sisi JL. Jika NM = 3, ML = 5, luas △JKM = 10 dan luas △JLM = 9, berapakah luas JKLM?`,
+options:["20","25","30","35","40"],
+answer:2,pembahasan:`NL² = 5² − 3² = 16 → NL = 4. Luas △NML = ½×3×4 = 6. Dari luas △JLM = 9: ½×3×JL = 9 → JL = 6 → JN = 2. Luas △JNM = 3. Dari luas △JKM = 10: ½×2×KM = 10 → KM = 10 → KN = 7. Luas △KLN = ½×4×7 = 14. Total JKLM = 3+6+7+14 = <strong>30</strong>. Jawaban C.`},
+
+{id:77,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Persegi ABCD dengan panjang sisi 24 cm. Sebuah lingkaran melalui titik A dan D, dan menyinggung sisi BC. Luas lingkaran tersebut adalah…`,
+options:["144π cm²","225π cm²","256π cm²","336π cm²","425π cm²"],
+answer:1,pembahasan:`Misalkan r = jari-jari lingkaran, E = titik tengah AD → AE = 12. EF = 24 − r. Dari segitiga AEF: r² = 12² + (24−r)² → r² = 144 + 576 − 48r + r² → 48r = 720 → r = 15. Luas = π × 15² = <strong>225π cm²</strong>. Jawaban B.`},
+
+{id:78,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Dalam satu kelas terdapat 30 orang. Ada 12 orang mengikuti pramuka, 15 orang mengikuti futsal, dan 7 orang mengikuti keduanya. Banyaknya siswa yang tidak mengikuti keduanya adalah…`,
+options:["3","10","13","19","22"],
+answer:1,pembahasan:`n(P∪F) = 12 + 15 − 7 = 20. Siswa tidak ikut keduanya = 30 − 20 = <strong>10</strong>. Jawaban B.`},
+
+{id:79,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Sebuah keranjang berisi 10 telur bebek dan 20 telur ayam. Setengah dari telur bebek pecah dan seperempat dari telur ayam juga pecah. Apabila diambil satu telur secara acak, peluang bahwa yang terambil adalah telur bebek ATAU telur pecah adalah…`,
+options:["1/3","2/3","0,5","0,333","1/4"],
+answer:2,pembahasan:`n(S)=30. Telur bebek pecah=5, ayam pecah=5, total pecah=10. n(B∪C) = n(B)+n(C)−n(B∩C) = 10+10−5 = 15. P = 15/30 = <strong>0,5</strong>. Jawaban C.`},
+
+{id:80,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Suatu SMA terdiri dari 6 kelas dengan masing-masing terdiri dari 15 siswa dan 15 siswi. Jika dari setiap kelas dipilih satu orang, maka peluang tepat 4 orang siswa (laki-laki) menjadi pengurus OSIS adalah…`,
+options:["1/65","1/64","15/64","14/65","12/65"],
+answer:2,pembahasan:`P(siswa) = P(siswi) = ½. P(tepat 4 siswa dari 6) = C(6,4) × (½)⁴ × (½)² = 15 × 1/16 × 1/4 = <strong>15/64</strong>. Jawaban C.`},
+
+{id:81,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,
+context:`<p>Tarif ojek online:<br>• Jarak 0–3 km: Rp8.000 (flat)<br>• Jarak 3–5 km: naik linear dari Rp8.000 ke Rp15.000<br>• Jarak 5–7 km: naik linear dari Rp15.000 ke Rp22.000<br>(pola kenaikan linear berlanjut)</p>`,
+question:`Jika Sofina naik ojek online sejauh 12 km, berapa harga yang harus dia bayar?`,
+options:["Rp39.500","Rp40.000","Rp41.500","Rp42.000","Rp45.000"],
+answer:0,pembahasan:`Gradien: m = (15−8)/(5−3) = 7/2 (ribuan/km). Dengan titik (5, 15): y − 15 = (7/2)(x − 5). Untuk x = 12: y − 15 = (7/2)(7) = 49/2 → y = 15 + 24,5 = 39,5. Harga = <strong>Rp39.500</strong>. Jawaban A.`},
+
+{id:82,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,
+context:`<p>Diketahui: A = [[14, 3], [6, 5]], B = [[a+3, b], [c−2, 2d]], C = [[18, 2], [3, 9]].<br>Jika transpose matriks C adalah hasil penjumlahan matriks A dengan matriks B.</p>`,
+question:`Nilai dari a + b + c + d adalah…`,
+options:["0","1","2","3","4"],
+answer:1,pembahasan:`Cᵀ = [[18,3],[2,9]]. Cᵀ = A + B → [[18,3],[2,9]] = [[a+17, b+3],[c+4, 2d+5]]. Sehingga: a=1, b=0, c=−2, d=2. a+b+c+d = 1+0+(−2)+2 = <strong>1</strong>. Jawaban B.`},
+
+{id:83,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Pada gambar, garis l dan g sejajar dipotong oleh garis transversal membentuk sudut x (di garis l), sudut y (lancip di garis g sebelah kiri), dan sudut z (di bawah garis g). Manakah pernyataan yang BENAR?
+1) x − y = 90°
+2) y = z
+3) x + z = 180°
+4) y + z = 180°`,
+options:["(1), (2), (3) SAJA yang benar","(1) dan (3) SAJA yang benar","(2) dan (4) SAJA yang benar","HANYA (4) yang benar","Semua pilihan benar"],
+answer:1,pembahasan:`(1) Dari segitiga: y + 90° + (180°−x) = 180° → x − y = 90°. BENAR. (2) y tidak harus sama z. SALAH. (3) x dan z berpelurus → x + z = 180°. BENAR. (4) y + z = 90° ≠ 180°. SALAH. <strong>Jawaban B: (1) dan (3).</strong>`},
+
+{id:84,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Diketahui: a² + 2 = 5a dan b² + 2 = 5b. Jika a ≠ b, maka nilai dari 1/a² + 1/b² = …`,
+options:["23","19/2","32/3","21/4","15/8"],
+answer:3,pembahasan:`Eliminasi: a² − b² = 5(a−b) → a + b = 5. Jumlah: a²+b²+4 = 25 → a²+b² = 21. Dari (a+b)²=25: 21+2ab=25 → ab=2. Maka 1/a²+1/b² = (a²+b²)/(ab)² = 21/4. <strong>Jawaban D: 21/4.</strong>`},
+
+{id:85,cat:"Pengetahuan Kuantitatif",groupId:null,groupLabel:null,context:null,
+question:`Jika a dan b merupakan bilangan bulat positif, apakah a + b kelipatan 3?
+(1) a + b kelipatan 6.
+(2) b kelipatan 3.
+
+[Petunjuk: A=(1) saja cukup; B=(2) saja cukup; C=Bersama cukup; D=Keduanya masing-masing cukup; E=Keduanya tidak cukup]`,
+options:["Pernyataan (1) SAJA cukup","Pernyataan (2) SAJA cukup","Kedua pernyataan bersama cukup, satu saja tidak cukup","Pernyataan (1) SAJA cukup DAN pernyataan (2) SAJA cukup","Keduanya tidak cukup"],
+answer:0,pembahasan:`(1): a+b = 6k → 3|6k → 3|(a+b). Cukup untuk menjawab. (2): b kelipatan 3, tapi a belum tentu kelipatan 3. Tidak pasti → tidak cukup. <strong>Jawaban A: Pernyataan (1) SAJA cukup.</strong>`},
+
+];
+
+
+// ══════════════════════════════════════════════════════════
+// CUSTOM QUESTIONS (ditambah user, persisten via localStorage)
+// ══════════════════════════════════════════════════════════
+let CUSTOM_SOAL = [];
+let nextCustomId = 9000;
+
+function loadCustomSoal() {
+  try {
+    const saved = localStorage.getItem('snbt_custom_soal');
+    if (saved) {
+      CUSTOM_SOAL = JSON.parse(saved);
+      nextCustomId = CUSTOM_SOAL.length > 0 ? Math.max(...CUSTOM_SOAL.map(q => q.id)) + 1 : 9000;
+    }
+  } catch(e) { CUSTOM_SOAL = []; }
+}
+
+function saveCustomSoal() {
+  try { localStorage.setItem('snbt_custom_soal', JSON.stringify(CUSTOM_SOAL)); } catch(e) {}
+}
+
+// ══════════════════════════════════════════════════════════
+// BUILD FULL BANK
+// ══════════════════════════════════════════════════════════
+function getFullBank() {
+  const all = [...SOAL_BAWAAN, ...CUSTOM_SOAL];
+  const seen = new Set();
+  return all.filter(q => { if(seen.has(q.id)){ return false; } seen.add(q.id); return true; });
+}
+
+function getGroups(bank) {
+  const groups = {};
+  bank.forEach(q => {
+    if(q.groupId) {
+      if(!groups[q.groupId]) groups[q.groupId] = [];
+      groups[q.groupId].push(q);
+    }
+  });
+  return groups;
+}
+
+// ══════════════════════════════════════════════════════════
+// APP STATE
+// ══════════════════════════════════════════════════════════
+let flatSession = [];
+let currentIdx = 0;
+let userAnswers = {};
+let answered = false;
+
+// ══ VIEW SWITCHING ══
+function switchView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1)).classList.add('active');
+  document.getElementById('nav' + v.charAt(0).toUpperCase() + v.slice(1)).classList.add('active');
+  if(v === 'add') renderBankList();
+  if(v === 'tryout') updateStartStats();
+}
+
+// ══ INIT ══
+document.addEventListener('DOMContentLoaded', function() {
+  loadCustomSoal();
+  updateStartStats();
+  renderBankList();
+  // Live counter on paste textarea
+  const pa = document.getElementById('pasteArea');
+  if(pa) {
+    pa.addEventListener('input', function() {
+      const blocks = splitIntoBlocks(this.value);
+      const ct = document.getElementById('previewCount');
+      ct.textContent = blocks.length > 0 ? blocks.length + ' soal terdeteksi' : '—';
+    });
+  }
+});
+
+function updateStartStats() {
+  const bank = getFullBank();
+  const groups = getGroups(bank);
+  document.getElementById('totalQ').textContent = bank.length;
+  document.getElementById('totalGrp').textContent = Object.keys(groups).length;
+  document.getElementById('customQ').textContent = CUSTOM_SOAL.length;
+  // Render set list with current setSize
+  renderSetList();
+}
+
+// ══ SHUFFLE (no longer used for main quiz, kept for compatibility) ══
+function shuffle(arr) {
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// ══ BUILD SETS (ordered, no shuffle) ══
+function buildSets(bank, setSize) {
+  // Collect questions in original order, preserving group integrity
+  const sets = [];
+  const used = new Set();
+  const ordered = [...bank]; // already in original order
+
+  let setQuestions = [];
+
+  // Process groups and standalone in order they appear
+  const processed = [];
+  let i = 0;
+  while(i < ordered.length) {
+    const q = ordered[i];
+    if(q.groupId && !used.has(q.groupId)) {
+      // Collect all group members in order
+      const groupQs = ordered.filter(x => x.groupId === q.groupId);
+      groupQs.forEach(x => used.add(x.id));
+      used.add(q.groupId);
+      processed.push({type:'group', questions: groupQs});
+    } else if(!q.groupId && !used.has(q.id)) {
+      used.add(q.id);
+      processed.push({type:'single', questions: [q]});
+    }
+    i++;
+  }
+
+  // Pack into sets, keeping groups together
+  let cur = [];
+  for(const unit of processed) {
+    // If adding this unit would exceed setSize AND cur is not empty, flush
+    if(cur.length > 0 && cur.length + unit.questions.length > setSize) {
+      sets.push(cur);
+      cur = [];
+    }
+    unit.questions.forEach(q => cur.push(q));
+    // If exactly at setSize, flush
+    if(cur.length >= setSize) {
+      sets.push(cur.slice(0, setSize));
+      cur = cur.slice(setSize); // remainder (shouldn't happen normally)
+    }
+  }
+  if(cur.length > 0) sets.push(cur);
+  return sets;
+}
+
+// ══ RENDER SET LIST ══
+function renderSetList() {
+  var setSizeEl = document.getElementById('setSize');
+  if(!setSizeEl) return;
+  var bank = getFullBank();
+  var setSize = parseInt(setSizeEl.value) || 20;
+  var sets = buildSets(bank, setSize);
+
+  var totalSetsEl = document.getElementById('totalSets');
+  if(totalSetsEl) totalSetsEl.textContent = sets.length;
+
+  // Update subtitle
+  var subtitle = document.getElementById('setSelectorSubtitle');
+  if(subtitle) subtitle.textContent = 'Setiap set berisi hingga ' + setSize + ' soal dengan urutan tetap.';
+
+  var container = document.getElementById('setList');
+  if(!container) return;
+  container.innerHTML = '';
+
+  var soalStart = 1;
+
+  sets.forEach(function(questions, idx) {
+    var cats = [];
+    var catSeen = {};
+    questions.forEach(function(q) {
+      if(!catSeen[q.cat]) { catSeen[q.cat] = true; cats.push(q.cat); }
+    });
+
+    var grpSeen = {};
+    var grpCount = 0;
+    questions.forEach(function(q) {
+      if(q.groupId && !grpSeen[q.groupId]) { grpSeen[q.groupId] = true; grpCount++; }
+    });
+    var standaloneCount = questions.filter(function(q){ return !q.groupId; }).length;
+    var soalEnd = soalStart + questions.length - 1;
+
+    var card = document.createElement('div');
+    card.className = 'set-card';
+    card.innerHTML =
+      '<div class="set-card-num">Set ' + (idx+1) + ' &nbsp;&middot;&nbsp; Soal ' + soalStart + '&ndash;' + soalEnd + '</div>' +
+      '<div class="set-card-title">&#x1F4DD; ' + questions.length + ' Soal</div>' +
+      '<div class="set-card-count">' +
+        (grpCount > 0 ? '&#x1F4D6; ' + grpCount + ' kelompok teks' + (standaloneCount > 0 ? ' &middot; ' : '') : '') +
+        (standaloneCount > 0 ? standaloneCount + ' soal mandiri' : '') +
+      '</div>' +
+      '<div class="set-card-tags">' +
+        cats.map(function(c) { return '<span class="set-card-tag">' + c + '</span>'; }).join('') +
+      '</div>' +
+      '<button class="set-card-btn" onclick="startQuizWithSet(' + idx + ')">Mulai Set ' + (idx+1) + ' &#x25B6;</button>';
+    container.appendChild(card);
+
+    soalStart += questions.length;
+  });
+
+  window._currentSets = sets;
+}
+
+// ══ START QUIZ WITH SELECTED SET ══
+function startQuizWithSet(setIdx) {
+  var sets = window._currentSets;
+  if(!sets || !sets[setIdx]) return;
+  flatSession = sets[setIdx];
+  window._currentSetIdx = setIdx;
+
+  currentIdx = 0;
+  userAnswers = {};
+  answered = false;
+
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('quizArea').classList.remove('hidden');
+
+  document.getElementById('totalInSession').textContent = flatSession.length;
+
+  // Update progress label to show set number
+  document.querySelector('.progress-label').textContent = '🏃 Set ' + (setIdx+1) + ' · Progress';
+
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ══ START QUIZ (legacy — now delegates to set selection) ══
+function startQuiz() {
+  renderSetList();
+}
+
+// ══ RENDER QUESTION ══
+function renderQuestion() {
+  answered = false;
+  const q = flatSession[currentIdx];
+  const num = currentIdx + 1;
+  const total = flatSession.length;
+
+  document.getElementById('curQ').textContent = num;
+  document.getElementById('progFill').style.width = ((num/total)*100) + '%';
+  document.getElementById('qBadge').textContent = `Soal ${num} dari ${total}`;
+  document.getElementById('qCat').textContent = q.cat;
+  const grpTag = document.getElementById('qGrpTag');
+  grpTag.textContent = q.groupLabel ? `📎 ${q.groupLabel}` : '';
+
+  // Context
+  const ctxBlock = document.getElementById('ctxBlock');
+  const ctxBody = document.getElementById('ctxBody');
+  const ctxArrow = document.getElementById('ctxArrow');
+  const ctxLabel = document.getElementById('ctxLabel');
+
+  if(q.context) {
+    ctxBlock.classList.remove('hidden');
+    ctxBody.innerHTML = q.context;
+    const groupQsInSession = q.groupId ? flatSession.filter(x => x.groupId === q.groupId) : [];
+    const isFirstInGroup = !q.groupId || groupQsInSession[0] === q;
+    if(isFirstInGroup) {
+      ctxLabel.textContent = 'Baca Teks Pengantar (untuk seluruh soal kelompok ini)';
+      ctxBody.classList.add('open');
+      ctxArrow.classList.add('open');
+    } else {
+      ctxLabel.textContent = 'Tampilkan kembali Teks Pengantar';
+      ctxBody.classList.remove('open');
+      ctxArrow.classList.remove('open');
+    }
+  } else {
+    ctxBlock.classList.add('hidden');
+  }
+
+  // Question
+  document.getElementById('qText').textContent = q.question;
+
+  // Options
+  const letters = ['A','B','C','D','E'];
+  const ol = document.getElementById('optList');
+  ol.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    ol.appendChild(btn);
+  });
+
+  // Reset
+  document.getElementById('feedbackBar').className = 'feedback';
+  document.getElementById('pemWrap').classList.add('hidden');
+  document.getElementById('pemBox').className = 'pem-box';
+  document.getElementById('nextWrap').style.display = 'none';
+
+  // Re-animate
+  const card = document.getElementById('qCard');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = '';
+}
+
+function toggleCtx(btn) {
+  document.getElementById('ctxBody').classList.toggle('open');
+  document.getElementById('ctxArrow').classList.toggle('open');
+}
+
+// ══ SELECT ANSWER ══
+function selectAnswer(idx) {
+  if(answered) return;
+  answered = true;
+  const q = flatSession[currentIdx];
+  userAnswers[q.id] = idx;
+
+  const opts = document.querySelectorAll('.opt');
+  opts.forEach((btn, i) => {
+    btn.classList.add('disabled');
+    if(i === q.answer) btn.classList.add('correct');
+    if(i === idx && idx !== q.answer) btn.classList.add('wrong');
+  });
+
+  const correct = idx === q.answer;
+  const letters = ['A','B','C','D','E'];
+  const fb = document.getElementById('feedbackBar');
+  if(correct) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = `<span class="feedback-icon">✅</span><span>Jawaban benar! Pilihan <strong>${letters[idx]}</strong> tepat.</span>`;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = `<span class="feedback-icon">❌</span><span>Belum tepat. Jawaban benar adalah pilihan <strong>${letters[q.answer]}</strong>.</span>`;
+  }
+
+  // Pembahasan
+  const pemWrap = document.getElementById('pemWrap');
+  const pemBox = document.getElementById('pemBox');
+  pemWrap.classList.remove('hidden');
+  pemBox.innerHTML = q.pembahasan || '<em>Pembahasan belum tersedia.</em>';
+
+  const nextWrap = document.getElementById('nextWrap');
+  nextWrap.style.display = 'flex';
+  document.getElementById('nextBtn').textContent =
+    currentIdx >= flatSession.length - 1 ? 'Lihat Hasil ▶' : 'Soal Berikutnya ▶';
+}
+
+function togglePem(btn) {
+  btn.classList.toggle('open');
+  const box = document.getElementById('pemBox');
+  box.classList.toggle('open');
+  btn.querySelector('.pem-label').textContent = box.classList.contains('open') ? 'Sembunyikan Pembahasan' : 'Lihat Pembahasan';
+}
+
+function nextQuestion() {
+  currentIdx++;
+  if(currentIdx >= flatSession.length) showResult();
+  else {
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+// ══ RESULT ══
+function showResult() {
+  document.getElementById('quizArea').classList.add('hidden');
+  var rs = document.getElementById('resultScreen');
+  rs.classList.remove('hidden');
+
+  var total = flatSession.length;
+  var score = 0;
+  flatSession.forEach(function(q) { if(userAnswers[q.id] === q.answer) score++; });
+  var pct = Math.round((score/total)*100);
+
+  var circ = 2*Math.PI*60;
+  document.getElementById('scoreArc').setAttribute('stroke-dasharray', (circ*(score/total)) + ' ' + circ);
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreDenom').textContent = 'dari ' + total;
+
+  var verdict;
+  if(pct >= 85) verdict = "Luar Biasa! 🏆";
+  else if(pct >= 70) verdict = "Sangat Baik! 👍";
+  else if(pct >= 55) verdict = "Cukup Baik 💪";
+  else verdict = "Ayo Lebih Banyak Latihan! 📖";
+  document.getElementById('resultVerdict').textContent = verdict;
+
+  var setIdx = window._currentSetIdx;
+  var sets = window._currentSets || [];
+  var setLabel = (setIdx !== undefined) ? ' (Set ' + (setIdx+1) + ')' : '';
+  document.getElementById('resultPct').textContent = 'Skor ' + pct + '%' + setLabel + ' — ' + score + ' dari ' + total + ' soal benar';
+
+  // Show/hide next set button
+  var btnNext = document.getElementById('btnNextSet');
+  var hasNextSet = sets && setIdx !== undefined && (setIdx + 1) < sets.length;
+  if(btnNext) {
+    if(hasNextSet) {
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Lanjut Set ' + (setIdx+2) + ' ▶';
+    } else {
+      btnNext.style.display = 'none';
+    }
+  }
+  var footerMsg = document.getElementById('resultFooterMsg');
+  if(footerMsg) {
+    if(hasNextSet) {
+      footerMsg.textContent = 'Set ' + (setIdx+1) + ' selesai! Lanjut ke Set ' + (setIdx+2) + ' atau pilih set lain. 🚀';
+    } else {
+      footerMsg.textContent = 'Semua set telah selesai! Terus berlatih untuk SNBT 2026 terbaikmu. 🏆';
+    }
+  }
+
+  var letters = ['A','B','C','D','E'];
+  var list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  flatSession.forEach(function(q, i) {
+    var ua = userAnswers[q.id];
+    var isCorrect = ua === q.answer;
+    var uaTxt = ua !== undefined ? (letters[ua] + '. ' + q.options[ua]) : '(tidak dijawab)';
+    var caTxt = letters[q.answer] + '. ' + q.options[q.answer];
+    var grpInfo = q.groupLabel ? ' — <em>' + q.groupLabel + '</em>' : '';
+    var isCustom = q.id >= 9000;
+    var pem = q.pembahasan || '<em>Pembahasan belum tersedia.</em>';
+
+    var div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML =
+      '<div class="review-item-header">' +
+        '<span class="ri-num">Soal ' + (i+1) + '</span>' +
+        '<span class="ri-badge ' + (isCorrect?'correct':'wrong') + '">' + (isCorrect?'&#x2713; Benar':'&#x2717; Salah') + '</span>' +
+        (isCustom ? '<span class="meta-tag custom">Soal Tambahan</span>' : '') +
+        '<span class="ri-cat">' + q.cat + grpInfo + '</span>' +
+      '</div>' +
+      '<div class="review-body">' +
+        '<div class="ri-q">' + q.question + '</div>' +
+        (!isCorrect ? '<div class="ans-row user-wrong"><span class="ans-tag">Jawaban Kamu:</span> ' + uaTxt + '</div>' : '') +
+        '<div class="ans-row correct-ans"><span class="ans-tag">' + (isCorrect?'&#x2713; Jawaban Kamu:':'Jawaban Benar:') + '</span> ' + caTxt + '</div>' +
+        '<div style="margin-top:14px">' +
+          '<button class="pem-btn" onclick="toggleRevPem(this)">&#x1F4A1; <span class="pem-label">Lihat Pembahasan</span><span class="pem-arrow">&#x25BC;</span></button>' +
+          '<div class="pem-box">' + pem + '</div>' +
+        '</div>' +
+      '</div>';
+    list.appendChild(div);
+  });
+  rs.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function goNextSet() {
+  var setIdx = window._currentSetIdx;
+  var sets = window._currentSets;
+  if(sets && setIdx !== undefined && (setIdx + 1) < sets.length) {
+    startQuizWithSet(setIdx + 1);
+  }
+}
+
+function toggleRevPem(btn) {
+  btn.classList.toggle('open');
+  const box = btn.nextElementSibling;
+  box.classList.toggle('open');
+  btn.querySelector('.pem-label').textContent = box.classList.contains('open') ? 'Sembunyikan Pembahasan' : 'Lihat Pembahasan';
+}
+
+function backToSets() {
+  if(Object.keys(userAnswers).length > 0) {
+    if(!confirm('Kembali ke pemilihan set? Progress soal saat ini akan hilang.')) return;
+  }
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function restartQuiz() {
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+  updateStartStats();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+
+// ══════════════════════════════════════════════════════════
+// ADD QUESTION — NEW FORMAT PARSER
+// Format:
+//   Soal Nomor N
+//   Teks Bacaan: [optional multi-line]
+//   Pertanyaan: [question text]
+//   Pilihan Jawaban:
+//   A. option
+//   B. option ...
+//   Jawaban: D. text
+//   Pembahasan: [optional]
+// ══════════════════════════════════════════════════════════
+
+let currentBankFilter = 'all';
+
+function toggleFormatGuide() {
+  const body = document.getElementById('formatGuideBody');
+  const btn = document.getElementById('toggleFmtBtn');
+  const isHidden = body.style.display === 'none';
+  body.style.display = isHidden ? '' : 'none';
+  btn.textContent = isHidden ? 'Sembunyikan ▲' : 'Tampilkan Format ▼';
+}
+
+
+function splitIntoBlocks(raw) {
+  if(!raw.trim()) return [];
+  // Split on "Soal Nomor N" lines (case-insensitive)
+  const parts = raw.split(/(?=^Soal[ \t]+Nomor[ \t]+\d+)/mi).map(b => b.trim()).filter(b => b.length > 0);
+  return parts;
+}
+
+function parseNewFormat(block) {
+  // Nomor soal
+  const nomorMatch = block.match(/^Soal[ \t]+Nomor[ \t]+(\d+)/mi);
+  const nomor = nomorMatch ? parseInt(nomorMatch[1]) : null;
+
+  // Teks Bacaan (between "Teks Bacaan:" and "Pertanyaan:")
+  const bacaanMatch = block.match(/Teks[ \t]+Bacaan:[ \t]*([\s\S]*?)(?=Pertanyaan:|$)/i);
+  const bacaanRaw = bacaanMatch ? bacaanMatch[1].trim() : '';
+
+  // Pertanyaan
+  const pertanyaanMatch = block.match(/Pertanyaan:[ \t]*([\s\S]*?)(?=Pilihan[ \t]+Jawaban:|Pilihan:|$)/i);
+  if(!pertanyaanMatch) throw new Error('Tag "Pertanyaan:" tidak ditemukan');
+  const question = pertanyaanMatch[1].trim();
+  if(!question) throw new Error('Teks pertanyaan kosong');
+
+  // Pilihan Jawaban
+  const pilihanMatch = block.match(/(?:Pilihan[ \t]+Jawaban|Pilihan):[ \t]*([\s\S]*?)(?=Jawaban:|Kunci:|$)/i);
+  if(!pilihanMatch) throw new Error('Tag "Pilihan Jawaban:" tidak ditemukan');
+  const pilihanRaw = pilihanMatch[1].trim();
+
+  const options = [];
+  const optLines = pilihanRaw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  for(const line of optLines) {
+    const m = line.match(/^[ABCDE][.)]\s*(.+)/i);
+    if(m) options.push(m[1].trim());
+  }
+  if(options.length < 2) throw new Error('Pilihan tidak cukup (minimal 2, ditemukan: ' + options.length + ')');
+
+  // Jawaban — support "Jawaban: D. Characteristics" or "Jawaban: D"
+  const jawabanMatch = block.match(/(?:Jawaban|Kunci(?:[ \t]+Jawaban)?):[ \t]*([ABCDE])[.)a-z \t]*/i);
+  if(!jawabanMatch) throw new Error('Tag "Jawaban:" tidak ditemukan (contoh: Jawaban: D. Teks)');
+  const ansLetter = jawabanMatch[1].toUpperCase();
+  const ansIdx = ['A','B','C','D','E'].indexOf(ansLetter);
+  if(ansIdx < 0 || ansIdx >= options.length) throw new Error('Kunci jawaban "' + ansLetter + '" tidak valid atau di luar jumlah pilihan');
+
+  // Pembahasan (everything after "Pembahasan:")
+  const pemMatch = block.match(/Pembahasan:[ \t]*([\s\S]*?)$/i);
+  const pembahasan = pemMatch ? pemMatch[1].trim() : '';
+
+  return { nomor, bacaanRaw, question, options, answer: ansIdx, pembahasan };
+}
+
+function previewParse() {
+  const raw = document.getElementById('pasteArea').value;
+  const blocks = splitIntoBlocks(raw);
+
+  if(blocks.length === 0) {
+    showParseResult('error', '⚠️ Tidak ada soal terdeteksi. Pastikan dimulai dengan "Soal Nomor N".');
+    return;
+  }
+
+  const previewPanel = document.getElementById('previewPanel');
+  const previewList = document.getElementById('previewList');
+  previewPanel.classList.remove('hidden');
+  previewList.innerHTML = '';
+
+  const letters = ['A','B','C','D','E'];
+  blocks.forEach(function(block, i) {
+    const div = document.createElement('div');
+    div.className = 'preview-item';
+    try {
+      const p = parseNewFormat(block);
+      const ctxBadge = p.bacaanRaw
+        ? '<div class="preview-ctx-badge">📖 Ada Teks Bacaan: ' + p.bacaanRaw.slice(0,50) + '...</div>'
+        : '';
+      const optsHtml = p.options.map(function(o,oi) {
+        return '<span class="preview-opt ' + (oi===p.answer?'answer':'') + '">' + letters[oi] + '. ' + o.slice(0,50) + (o.length>50?'…':'') + '</span>';
+      }).join('');
+      div.innerHTML =
+        '<div class="preview-num">Soal Nomor ' + (p.nomor || (i+1)) + '</div>' +
+        ctxBadge +
+        '<div class="preview-q">' + p.question.slice(0,140) + (p.question.length>140?'...':'') + '</div>' +
+        '<div class="preview-opts">' + optsHtml + '</div>' +
+        (p.pembahasan ? '<div style="font-size:var(--fs-xs);color:var(--gray-400);margin-top:4px">💡 Ada pembahasan</div>' : '');
+    } catch(e) {
+      div.innerHTML =
+        '<div class="preview-num">Blok ' + (i+1) + '</div>' +
+        '<div class="preview-error">❌ Error: ' + e.message + '</div>' +
+        '<div style="font-size:11px;color:var(--gray-400);margin-top:6px;white-space:pre-wrap">' + block.slice(0,250) + '</div>';
+    }
+    previewList.appendChild(div);
+  });
+
+  document.getElementById('parseResult').className = 'parse-result';
+  previewPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function parsePaste() {
+  const raw = document.getElementById('pasteArea').value;
+  const cat = document.getElementById('pasteCat').value;
+  const groupLabel = document.getElementById('pasteGroupLabel').value.trim();
+
+  const blocks = splitIntoBlocks(raw);
+  if(blocks.length === 0) {
+    showParseResult('error', '⚠️ Tidak ada soal terdeteksi. Pastikan format dimulai dengan "Soal Nomor N".');
+    return;
+  }
+
+  // Shared groupId for this batch (all soal in one paste share same group)
+  const batchGroupId = groupLabel
+    ? 'g_' + groupLabel.replace(/[^a-z0-9]/gi,'_').toLowerCase().slice(0,30) + '_' + Date.now()
+    : null;
+
+  let addedCount = 0;
+  const errors = [];
+  let sharedContextHTML = null; // context from first soal with bacaan, shared to whole group
+
+  blocks.forEach(function(block, i) {
+    try {
+      const p = parseNewFormat(block);
+
+      // Determine context placement
+      let contextHTML = null;
+      let isFirstWithContext = false;
+
+      if(p.bacaanRaw) {
+        // Build HTML from plain text paragraphs
+        const paras = p.bacaanRaw.split(/\n\n+/).map(function(para) {
+          return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+        }).join('');
+        contextHTML = paras;
+        sharedContextHTML = paras; // store for siblings
+        isFirstWithContext = true;
+      }
+      // If no bacaanRaw, this soal shares context from the group's first soal
+      // context:null means it won't display its own, but renderQuestion shows
+      // the group's first soal's context as a collapsible
+
+      const newQ = {
+        id: nextCustomId++,
+        cat: cat,
+        groupId: batchGroupId,
+        groupLabel: groupLabel || null,
+        context: isFirstWithContext ? contextHTML : null,
+        question: p.question,
+        options: p.options,
+        answer: p.answer,
+        pembahasan: p.pembahasan,
+        isCustom: true
+      };
+
+      CUSTOM_SOAL.push(newQ);
+      addedCount++;
+    } catch(e) {
+      errors.push('Soal ' + (i+1) + ': ' + e.message);
+    }
+  });
+
+  saveCustomSoal();
+  updateStartStats();
+  renderBankList();
+
+  if(addedCount > 0) {
+    let msg = '✅ Berhasil menambahkan ' + addedCount + ' soal ke bank soal!';
+    if(errors.length > 0) msg += '\n⚠️ ' + errors.length + ' soal gagal:\n' + errors.join('\n');
+    showParseResult('success', msg);
+    if(errors.length === 0) {
+      document.getElementById('pasteArea').value = '';
+      document.getElementById('previewPanel').classList.add('hidden');
+      document.getElementById('previewCount').textContent = '—';
+    }
+  } else {
+    showParseResult('error', '❌ Semua soal gagal diurai.\n\n' + errors.join('\n'));
+  }
+}
+
+function showParseResult(type, msg) {
+  const el = document.getElementById('parseResult');
+  el.className = 'parse-result ' + type;
+  el.style.whiteSpace = 'pre-wrap';
+  el.textContent = msg;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function clearPasteArea() {
+  document.getElementById('pasteArea').value = '';
+  document.getElementById('pasteGroupLabel').value = '';
+  document.getElementById('parseResult').className = 'parse-result';
+  document.getElementById('previewPanel').classList.add('hidden');
+  document.getElementById('previewCount').textContent = '—';
+}
+
+function deleteCustomQ(id) {
+  if(!confirm('Hapus soal ini dari bank soal?')) return;
+  CUSTOM_SOAL = CUSTOM_SOAL.filter(function(q) { return q.id !== id; });
+  saveCustomSoal();
+  updateStartStats();
+  renderBankList();
+}
+
+function filterBank(filter, btn) {
+  currentBankFilter = filter;
+  document.querySelectorAll('.bank-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderBankList();
+}
+
+// ══ BANK LIST ══
+function renderBankList() {
+  const bank = getFullBank();
+  let filtered = bank;
+  if(currentBankFilter === 'custom') filtered = bank.filter(function(q) { return CUSTOM_SOAL.some(function(c) { return c.id === q.id; }); });
+  if(currentBankFilter === 'builtin') filtered = bank.filter(function(q) { return !CUSTOM_SOAL.some(function(c) { return c.id === q.id; }); });
+
+  const list = document.getElementById('bankList');
+  const empty = document.getElementById('bankEmpty');
+  const countEl = document.getElementById('bankCount');
+  countEl.textContent = bank.length + ' soal';
+
+  if(filtered.length === 0) {
+    list.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  list.innerHTML = '';
+
+  const letters = ['A','B','C','D','E'];
+  filtered.forEach(function(q, i) {
+    const isCustom = CUSTOM_SOAL.some(function(c) { return c.id === q.id; });
+    const div = document.createElement('div');
+    div.className = 'bank-item';
+    div.innerHTML =
+      '<div class="bank-item-num">' + (i+1) + '</div>' +
+      '<div class="bank-item-body">' +
+        '<div class="bank-item-q">' + q.question.replace(/\n/g,' ').slice(0,95) + (q.question.length>95?'...':'') + '</div>' +
+        '<div class="bank-item-meta">' +
+          '<span class="meta-tag">' + q.cat + '</span>' +
+          (q.groupLabel ? '<span class="meta-tag">📎 ' + q.groupLabel + '</span>' : '') +
+          '<span class="meta-tag">Jwb: <strong>' + letters[q.answer] + '</strong></span>' +
+          (isCustom ? '<span class="meta-tag custom">✨ Tambahan</span>' : '<span class="meta-tag">📚 Bawaan</span>') +
+        '</div>' +
+      '</div>' +
+      (isCustom ? '<div class="bank-item-actions"><button class="btn-danger" onclick="deleteCustomQ(' + q.id + ')">🗑️</button></div>' : '');
+    list.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
